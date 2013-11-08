@@ -1,11 +1,22 @@
 package com.hskj.dbunit;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.hskj.util.DBSumary;
 
 public class Schemata {
 	private String SCHEMA_NAME;
 	private String DEFAULT_CHARACTER_SET_NAME;
 	private String DEFAULT_COLLATION_NAME;
+	List<String> err_filed = new ArrayList<String>();
+	
+	public List<String> getErr_filed() {
+		return err_filed;
+	}
+	public void setErr_filed(List<String> err_filed) {
+		this.err_filed = err_filed;
+	}
 	public String getSCHEMA_NAME() {
 		return SCHEMA_NAME;
 	}

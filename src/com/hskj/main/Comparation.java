@@ -124,7 +124,24 @@ public class Comparation {
 		}
 		return msg;
 	}
+	private static void schemataProComparing(Schemata base,Schemata other){
+		if (base.getDEFAULT_CHARACTER_SET_NAME() == null) {
+			if (other.getDEFAULT_CHARACTER_SET_NAME() != null)
+				other.getErr_filed().add("DEFAULT_CHARACTER_SET_NAME");
+		} else if (!base.getDEFAULT_CHARACTER_SET_NAME()
+				.equals(other.getDEFAULT_CHARACTER_SET_NAME())){
+			other.getErr_filed().add("DEFAULT_CHARACTER_SET_NAME");
+		}
+		if (base.getDEFAULT_COLLATION_NAME() == null) {
+			if (other.getDEFAULT_COLLATION_NAME() != null){
+				other.getErr_filed().add("DEFAULT_COLLATION_NAME");
+			}
+		} else if (!base.getDEFAULT_COLLATION_NAME().equals(other.getDEFAULT_COLLATION_NAME())){
+			other.getErr_filed().add("DEFAULT_COLLATION_NAME");
+		}
+	}
 	private String tableComparing(DBComponent base,DBComponent other){
+		schemataProComparing(base.getSchemata(),other.getSchemata());
 		for(Table table_base:base.getTableList()){
 			Table table_other = other.getTableByTableName(table_base.getTABLE_NAME());
 			if(table_other!=null){
