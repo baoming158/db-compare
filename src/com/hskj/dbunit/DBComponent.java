@@ -20,10 +20,24 @@ public class DBComponent{
 	private Connection conn = null;
 	
 	private List<Table> tableList;
+	private List<Table> add_list = new ArrayList<Table>();
+	private List<Table> rm_list = new ArrayList<Table>();
 	private List<Column> columnList;
 	private Schemata schemata;
 	
 	
+	public List<Table> getAdd_list() {
+		return add_list;
+	}
+	public void setAdd_list(List<Table> add_list) {
+		this.add_list = add_list;
+	}
+	public List<Table> getRm_list() {
+		return rm_list;
+	}
+	public void setRm_list(List<Table> rm_list) {
+		this.rm_list = rm_list;
+	}
 	public String getUrl() {
 		return url;
 	}

@@ -29,22 +29,8 @@ public class Column {
 	private String extra;
 	private String privileges;
 	private String column_comment;
-	private List<Column> add_list = new ArrayList<Column>();
-	private List<Column> rm_list = new ArrayList<Column>();
 	List<String> err_filed = new ArrayList<String>();
 	
-	public List<Column> getAdd_list() {
-		return add_list;
-	}
-	public void setAdd_list(List<Column> add_list) {
-		this.add_list = add_list;
-	}
-	public List<Column> getRm_list() {
-		return rm_list;
-	}
-	public void setRm_list(List<Column> rm_list) {
-		this.rm_list = rm_list;
-	}
 	public List<String> getErr_filed() {
 		return err_filed;
 	}

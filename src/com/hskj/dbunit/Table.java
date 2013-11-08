@@ -11,8 +11,8 @@ public class Table{
 	private String ENGINE;
 	private boolean is_exit = true;//对方是否存在
 	List<Column> columnList ;
-	List<Table> add_list = new ArrayList<Table>();
-	List<Table> rm_list = new ArrayList<Table>();//不存在的表
+	List<Column> add_list = new ArrayList<Column>();
+	List<Column> rm_list = new ArrayList<Column>();//不存在的表
 	List<String> err_filed = new ArrayList<String>();
 	
 	public List<String> getErr_filed() {
@@ -21,16 +21,16 @@ public class Table{
 	public void setErr_filed(List<String> err_filed) {
 		this.err_filed = err_filed;
 	}
-	public List<Table> getAdd_list() {
+	public List<Column> getAdd_list() {
 		return add_list;
 	}
-	public void setAdd_list(List<Table> add_list) {
+	public void setAdd_list(List<Column> add_list) {
 		this.add_list = add_list;
 	}
-	public List<Table> getRm_list() {
+	public List<Column> getRm_list() {
 		return rm_list;
 	}
-	public void setRm_list(List<Table> rm_list) {
+	public void setRm_list(List<Column> rm_list) {
 		this.rm_list = rm_list;
 	}
 	public boolean isIs_exit() {

@@ -17,7 +17,16 @@ public class Comparation {
 				ColumnProComparing(column_base,column_other);
 			}else{
 				//从表中被删减
-				column_other.getRm_list().add(column_base);
+				table_other.getRm_list().add(column_base);
+			}
+		}
+		//反向比较
+		for(Column column_other:table_other.getColumnList()){
+			Column column_base = table_base.getColumnByName(column_other.getColumn_name());
+			if(column_base!=null){
+				//从表多出属性
+				table_other.getAdd_list().add(column_other);
+			}else{
 			}
 		}
 	}
@@ -102,6 +111,19 @@ public class Comparation {
 			other.getErr_filed().add("character_maximum_length");
 		}
 	}
+	public String getMessage(DBComponent component){
+		System.out.println("-------------------------"+component.getDbname()+"----------------------------");
+		String msg = "";
+		System.out.println("多出表数量："+component.getAdd_list());
+		for(Table t :component.getTableList()){
+			System.out.println("-------------------------"+t.getTABLE_NAME()+"----------------------------");
+			System.out.println("多出列数量："+t.getAdd_list());
+			for(Column c:t.getColumnList()){
+				System.out.println("列属性不同的数量："+c.getErr_filed());
+			}
+		}
+		return msg;
+	}
 	private String tableComparing(DBComponent base,DBComponent other){
 		for(Table table_base:base.getTableList()){
 			Table table_other = other.getTableByTableName(table_base.getTABLE_NAME());
@@ -111,7 +133,7 @@ public class Comparation {
 				ColumnComparing(table_base,table_other);
 			}else{
 				//从表中被删减的表
-				table_other.getRm_list().add(table_base);
+				other.getRm_list().add(table_base);
 			}
 		}
 		//反向比较
@@ -119,10 +141,9 @@ public class Comparation {
 			Table table_base = base.getTableByTableName(table_other.getTABLE_NAME());
 			if(table_base!=null){
 				//主表存在
-				ColumnComparing(table_base,table_other);
 			}else{
 				//从表中多出的表
-				table_other.getAdd_list().add(table_base);
+				other.getAdd_list().add(table_other);
 			}
 		}
 		return null;
@@ -256,6 +277,8 @@ public class Comparation {
 //		t.compare2(compareTable,compareTable1,compareTable2);
 		
 		Comparation c = new Comparation();
-		c.tableComparing(compareTable,compareTable);
+		c.tableComparing(compareTable,compareTable2);
+		c.getMessage(compareTable2);
+		System.out.println("l");
 	}
 }
