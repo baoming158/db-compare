@@ -140,7 +140,7 @@ public class Comparation {
 			other.getErr_filed().add("DEFAULT_COLLATION_NAME");
 		}
 	}
-	private String tableComparing(DBComponent base,DBComponent other){
+	private String _start(DBComponent base,DBComponent other){
 		schemataProComparing(base.getSchemata(),other.getSchemata());
 		for(Table table_base:base.getTableList()){
 			Table table_other = other.getTableByTableName(table_base.getTABLE_NAME());
@@ -294,7 +294,7 @@ public class Comparation {
 //		t.compare2(compareTable,compareTable1,compareTable2);
 		
 		Comparation c = new Comparation();
-		c.tableComparing(compareTable,compareTable2);
+		c._start(compareTable,compareTable2);
 		c.getMessage(compareTable2);
 		System.out.println("l");
 	}
