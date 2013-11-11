@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.hskj.dbunit.DBComponent;
 import com.hskj.main.Comparation;
 import com.hskj.service.CompareService;
+import com.hskj.util.DBSumary;
 
 @Controller
 public class CompareController {
@@ -27,12 +28,22 @@ public class CompareController {
 		
 		return "diffResult";
 	}
-	@SuppressWarnings("unused")
-	private String htmlspecialchars(String str){
-		str = str.replaceAll("&","&amp;");
-		str = str.replaceAll("<", "&lt;");
-		str = str.replaceAll(">", "&gt;");
-		str = str.replaceAll("\"", "&quot;");
-		return str;
+	
+	
+	@RequestMapping("/showDiff.do")
+	public String showDiff(HttpServletRequest request,ModelMap modelMap){
+		DBComponent c = compareService.getComponentBase(request);
+		List<DBComponent> compareTables = compareService.getComponentOthers(request);
+		Comparation comparation = new Comparation();
+		comparation._compare(c, compareTables);
+//		if(compareTables!=null && compareTables.size()>0){
+//			for(DBComponent compareTable:compareTables){
+//				DBSumary.setSummary("±È½Ï"+compareTable.getUrl()+"ºÍ"+c.getUrl());
+//				comparation._start(compareTable,c);
+//				comparation._getMessage(c);
+//			}
+//		}
+		modelMap.addAttribute("list",compareTables);
+		return "diffResult";
 	}
 }

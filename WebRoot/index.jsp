@@ -21,7 +21,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-  <form action="comparing.do" method="post">
+  <form action="showDiff.do" method="post">
     数据库服务器地址:<input type="text" name="url" id="url" value="jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=gbk"><br/>
     用户名：<input type="text" name="username" id="username" value="root"/><br/>
     密码：<input type="password" id="password" name="password" value="root"/><br/>

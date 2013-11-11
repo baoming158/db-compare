@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -35,17 +36,55 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-  <div class="db">
-  	<div class="db_title">${db_base.url }</div>
-  	<div class="db_tables">
-  		<c:forEach items="${db_base.tableList }" var="each">
-  			<div class="db_title">${each.TABLE_NAME }</div>
+  <c:forEach items="${list}" var="db">
+  	<div>
+  		<div>${db.url}</div>
+  		<c:if test="${fn:contains(db.schemata.err_filed,DEFAULT_CHARACTER_SET_NAME)}">
+  			**<div>编码：${db.schemata.DEFAULT_CHARACTER_SET_NAME}</div>
+  		</c:if>
+  		<c:if test="${fn:contains(db.schemata.err_filed,DEFAULT_CHARACTER_SET_NAME)}">
+  			<div>编码：${db.schemata.DEFAULT_CHARACTER_SET_NAME}</div>
+  		</c:if>
+  		<c:if test="${fn:contains(db.schemata.err_filed,DEFAULT_CHARACTER_SET_NAME)}">
+  			**<div>定序：${db.schemata.DEFAULT_COLLATION_NAME}</div>
+  		</c:if>
+  		<c:if test="${fn:contains(db.schemata.err_filed,DEFAULT_CHARACTER_SET_NAME)}">
+  			<div>定序：${db.schemata.DEFAULT_COLLATION_NAME}</div>
+  		</c:if>
+  		
+  		<div>定序：${db.schemata.DEFAULT_COLLATION_NAME}</div>
+  		<c:forEach items="${db.rm_list }" var="rm_table">
+  			<div>
+  				---少出的表----${rm_table.TABLE_NAME }
+  				<div>
+	  				11表属性描述。。。。。。。。。。。。。。。。
+  				</div>
+  			</div>
+  		</c:forEach>
+  		<c:forEach items="${db.tableList }" var="each_table">
+  			<c:if test="${each_table.is_extra_table}">
+	  			<div>
+	  				++++++多出的表+++${each_table.TABLE_NAME }
+	  				<div>
+	  				11表属性描述。。。。。。。。。。。。。。。。
+	  				</div>
+	  			</div>
+  			</c:if>
+  			<c:if test="${!each_table.is_extra_table}">
+	  			<div>
+	  				${each_table.TABLE_NAME }
+	  				<div>
+	  				11表属性描述。。。。。。。。。。。。。。。。
+	  				</div>
+	  			</div>
+  			</c:if>
   		</c:forEach>
   	</div>
-  </div>
+  	<br/>
+  </c:forEach>
   
   
   
-	<div><pre>${msg }<pre></div>
+	<div><pre> ${msg }<pre></div>
   </body>
 </html>

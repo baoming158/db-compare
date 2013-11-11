@@ -6,9 +6,9 @@ import java.util.List;
 import com.hskj.util.DBSumary;
 
 public class Table{
-	private String TABLE_SCHEMA;
-	private String TABLE_NAME;
-	private String ENGINE;
+	private String TABLE_SCHEMA;//数据库名称
+	private String TABLE_NAME;//表名称
+	private String ENGINE;//表驱动
 	private boolean is_exit = true;//对方是否存在
 	private boolean is_extra_table;//是否为多出的表
 	List<Column> columnList ;

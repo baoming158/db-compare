@@ -155,7 +155,7 @@ public class Comparation {
 			other.getErr_filed().add("DEFAULT_COLLATION_NAME");
 		}
 	}
-	private String _start(DBComponent base,DBComponent other){
+	public String _start(DBComponent base,DBComponent other){
 		_schemataProComparing(base.getSchemata(),other.getSchemata());
 		for(Table table_base:base.getTableList()){
 			Table table_other = other.getTableByTableName(table_base.getTABLE_NAME());
@@ -179,6 +179,14 @@ public class Comparation {
 			}
 		}
 		return null;
+	}
+	public void _compare(DBComponent compareTable,List<DBComponent> compareTables){
+		if(compareTables!=null && compareTables.size()>0){
+			for(DBComponent c:compareTables){
+				DBSumary.setSummary("±È½Ï"+compareTable.getUrl()+"ºÍ"+c.getUrl());
+				_start(compareTable,c);
+			}
+		}
 	}
 	private void _tableProComparing(Table base,Table other){
 		if (base.getENGINE()== null) {
@@ -302,7 +310,7 @@ public class Comparation {
 		
 		DBComponent compareTable = new DBComponent("jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=gbk","root","root");
 		
-		DBComponent compareTable1 = new DBComponent("jdbc:mysql://localhost:3306/test1?useUnicode=true&characterEncoding=gbk","root","root");
+//		DBComponent compareTable1 = new DBComponent("jdbc:mysql://localhost:3306/test1?useUnicode=true&characterEncoding=gbk","root","root");
 		
 		DBComponent compareTable2 = new DBComponent("jdbc:mysql://localhost:3306/test2?useUnicode=true&characterEncoding=gbk","root","root");
 //		Comparation t = new Comparation();
@@ -311,6 +319,5 @@ public class Comparation {
 		Comparation c = new Comparation();
 		c._start(compareTable,compareTable2);
 		c._getMessage(compareTable2);
-		System.out.println("l");
 	}
 }

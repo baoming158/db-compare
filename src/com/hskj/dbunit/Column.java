@@ -10,26 +10,26 @@ import com.hskj.util.DBSumary;
 
 public class Column {
 	private String table_catalog;
-	private String table_schema;
-	private String table_name;
-	private String column_name;
+	private String table_schema;//库名称
+	private String table_name;//表名称*
+	private String column_name;//列名称*
 	
-	private int ordinal_position;
-	private String column_default;
-	private String is_nullable;
-	private String data_type;
-	private String character_maximum_length;
-	private String character_octet_length;
-	private String numeric_precision;
-	private String numeric_scale;
-	private String character_set_name;
-	private String collation_name;
-	private String column_type;
-	private String column_key;
-	private String extra;
-	private String privileges;
-	private String column_comment;
-	private boolean is_extra_column;
+	private int ordinal_position;//顺序*
+	private String column_default;//默认值
+	private String is_nullable;//是否为空
+	private String data_type;//数据类型 *varchar
+	private String character_maximum_length;//字符最大长度
+	private String character_octet_length;//字符八进制长度
+	private String numeric_precision;//精度
+	private String numeric_scale;//数字大小范围
+	private String character_set_name;//字符编码
+	private String collation_name;//定序
+	private String column_type;//列属性*varchar(22)
+	private String column_key;//是否为主键
+	private String extra;//额外信息 （auto_increment）
+	private String privileges;//权限（select,insert,update,references）
+	private String column_comment;//注释
+	private boolean is_extra_column;//是否为多出的列
 	Set<String> err_filed = new HashSet<String>();
 	
 	public boolean isIs_extra_column() {
