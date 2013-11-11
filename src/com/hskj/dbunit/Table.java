@@ -10,22 +10,22 @@ public class Table{
 	private String TABLE_NAME;
 	private String ENGINE;
 	private boolean is_exit = true;//对方是否存在
+	private boolean is_extra_table;//是否为多出的表
 	List<Column> columnList ;
-	List<Column> add_list = new ArrayList<Column>();
 	List<Column> rm_list = new ArrayList<Column>();//不存在的表
 	List<String> err_filed = new ArrayList<String>();
 	
+	public boolean isIs_extra_table() {
+		return is_extra_table;
+	}
+	public void setIs_extra_table(boolean is_extra_table) {
+		this.is_extra_table = is_extra_table;
+	}
 	public List<String> getErr_filed() {
 		return err_filed;
 	}
 	public void setErr_filed(List<String> err_filed) {
 		this.err_filed = err_filed;
-	}
-	public List<Column> getAdd_list() {
-		return add_list;
-	}
-	public void setAdd_list(List<Column> add_list) {
-		this.add_list = add_list;
 	}
 	public List<Column> getRm_list() {
 		return rm_list;
@@ -94,9 +94,9 @@ public class Table{
 		}
 		return true;
 	}
-	public Column getColumnByName(String column_name) {
+	public Column getColumnByName(String table_name,String column_name) {
 		for(Column c:columnList){
-			if(c.getColumn_name().equals(column_name)){
+			if(c.getColumn_name().equals(column_name)&&c.getTable_name().equals(table_name)){
 				return c;
 			}
 		}

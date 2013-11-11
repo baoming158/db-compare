@@ -1,7 +1,7 @@
 package com.hskj.dbunit;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.hskj.util.DBSumary;
 
@@ -29,12 +29,19 @@ public class Column {
 	private String extra;
 	private String privileges;
 	private String column_comment;
-	List<String> err_filed = new ArrayList<String>();
+	private boolean is_extra_column;
+	Set<String> err_filed = new HashSet<String>();
 	
-	public List<String> getErr_filed() {
+	public boolean isIs_extra_column() {
+		return is_extra_column;
+	}
+	public void setIs_extra_column(boolean is_extra_column) {
+		this.is_extra_column = is_extra_column;
+	}
+	public Set<String> getErr_filed() {
 		return err_filed;
 	}
-	public void setErr_filed(List<String> err_filed) {
+	public void setErr_filed(Set<String> err_filed) {
 		this.err_filed = err_filed;
 	}
 	public Column(String table_name,String column_name){

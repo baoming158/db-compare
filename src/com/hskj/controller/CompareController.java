@@ -23,8 +23,6 @@ public class CompareController {
 		List<DBComponent> c1 = compareService.getComponentOthers(request);
 		Comparation comparation = new Comparation();
 		String msg = comparation.compare2(c, c1);
-//		System.out.println(msg);
-//		msg.replaceAll("\r\n", "<br/>");
 		modelMap.addAttribute("msg",msg).addAttribute("db_base",c);
 		
 		return "diffResult";

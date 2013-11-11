@@ -9,12 +9,12 @@ import com.hskj.util.DBSumary;
 
 
 public class Comparation {
-	private void ColumnComparing(Table table_base,Table table_other){
+	private void _columnComparing(Table table_base,Table table_other){
 		for(Column column_base:table_base.getColumnList()){
-			Column column_other = table_other.getColumnByName(column_base.getColumn_name());
+			Column column_other = table_other.getColumnByName(column_base.getTable_name(),column_base.getColumn_name());
 			if(column_other!=null){
 				//比较属性
-				ColumnProComparing(column_base,column_other);
+				_columnProComparing(column_base,column_other);
 			}else{
 				//从表中被删减
 				table_other.getRm_list().add(column_base);
@@ -22,15 +22,15 @@ public class Comparation {
 		}
 		//反向比较
 		for(Column column_other:table_other.getColumnList()){
-			Column column_base = table_base.getColumnByName(column_other.getColumn_name());
+			Column column_base = table_base.getColumnByName(column_other.getTable_name(),column_other.getColumn_name());
 			if(column_base!=null){
-				//从表多出属性
-				table_other.getAdd_list().add(column_other);
 			}else{
+				//从表多出属性
+				column_other.setIs_extra_column(true);
 			}
 		}
 	}
-	private void ColumnProComparing(Column base, Column other) {
+	private void _columnProComparing(Column base, Column other) {
 		if (base.getCharacter_maximum_length() == null) {
 			if (other.getCharacter_maximum_length() != null){
 				other.getErr_filed().add("character_maximum_length");
@@ -41,90 +41,105 @@ public class Comparation {
 		}
 		if (base.getCharacter_set_name() == null) {
 			if (other.getCharacter_set_name() != null){
-				other.getErr_filed().add("character_maximum_length");
+				other.getErr_filed().add("character_set_name");
 			}
 		} else if (!base.getCharacter_set_name().equals(other.getCharacter_set_name())){
-			other.getErr_filed().add("character_maximum_length");
+			other.getErr_filed().add("character_set_name");
 		}
 		if (base.getCollation_name() == null) {
 			if (other.getCollation_name()!= null){
-				other.getErr_filed().add("character_maximum_length");
+				other.getErr_filed().add("collation_name");
 			}
 		} else if (!base.getCollation_name().equals(other.getCollation_name())){
-			other.getErr_filed().add("character_maximum_length");
+			other.getErr_filed().add("collation_name");
 		}
 		if (base.getColumn_default() == null) {
 			if (other.getColumn_default() != null){
-				other.getErr_filed().add("character_maximum_length");
+				other.getErr_filed().add("column_default");
 			}
 		} else if (!base.getColumn_default().equals(other.getColumn_default())){
-			other.getErr_filed().add("character_maximum_length");
+			other.getErr_filed().add("column_default");
 		}
 		if (base.getColumn_key() == null) {
 			if (other.getColumn_key() != null){
-				other.getErr_filed().add("character_maximum_length");
+				other.getErr_filed().add("column_key");
 			}
 		} else if (!base.getColumn_key().equals(other.getColumn_key())){
-			other.getErr_filed().add("character_maximum_length");
+			other.getErr_filed().add("column_key");
 		}
 		if (base.getColumn_name() == null) {
 			if (other.getColumn_name() != null){
-				other.getErr_filed().add("character_maximum_length");
+				other.getErr_filed().add("column_name");
 			}
 		} else if (!base.getColumn_name().equals(other.getColumn_name())){
-			other.getErr_filed().add("character_maximum_length");
+			other.getErr_filed().add("column_name");
 		}
 		if (base.getColumn_type() == null) {
 			if (other.getColumn_type() != null){
-				other.getErr_filed().add("character_maximum_length");
+				other.getErr_filed().add("column_type");
 			}
 		} else if (!base.getColumn_type().equals(other.getColumn_type())){
-			other.getErr_filed().add("character_maximum_length");
+			other.getErr_filed().add("column_type");
 		}
 		if (base.getData_type() == null) {
 			if (other.getData_type() != null)
-				other.getErr_filed().add("character_maximum_length");
+				other.getErr_filed().add("data_type");
 		} else if (!base.getData_type().equals(other.getData_type())){
-			other.getErr_filed().add("character_maximum_length");
+			other.getErr_filed().add("data_type");
 		}
 		if (base.getExtra() == null) {
 			if (other.getExtra() != null){
-				other.getErr_filed().add("character_maximum_length");
+				other.getErr_filed().add("extra");
 			}
 		} else if (!base.getExtra().equals(other.getExtra())){
-			other.getErr_filed().add("character_maximum_length");
+			other.getErr_filed().add("extra");
 		}
 		if (base.getIs_nullable() == null) {
 			if (other.getIs_nullable() != null){
-				other.getErr_filed().add("character_maximum_length");
+				other.getErr_filed().add("is_nullable");
 			}
 		} else if (!base.getIs_nullable().equals(other.getIs_nullable())){
-			other.getErr_filed().add("character_maximum_length");
+			other.getErr_filed().add("is_nullable");
 		}
 		if (base.getOrdinal_position() != other.getOrdinal_position()){
-			other.getErr_filed().add("character_maximum_length");
+			other.getErr_filed().add("ordinal_position");
 		}
 		if (base.getTable_name() == null) {
 			if (other.getTable_name() != null)
-				other.getErr_filed().add("character_maximum_length");
+				other.getErr_filed().add("table_name");
 		} else if (!base.getTable_name().equals(other.getTable_name())){
-			other.getErr_filed().add("character_maximum_length");
+			other.getErr_filed().add("table_name");
 		}
 	}
-	public String getMessage(DBComponent component){
+	public String _getMessage(DBComponent component){
 		System.out.println("-------------------------"+component.getDbname()+"----------------------------");
 		String msg = "";
-		System.out.println("多出表数量："+component.getAdd_list());
+		for(Table t:component.getRm_list()){
+			System.out.println("-表："+t.getTABLE_NAME());
+		}
 		for(Table t :component.getTableList()){
 			System.out.println("-------------------------"+t.getTABLE_NAME()+"----------------------------");
-			System.out.println("多出列数量："+t.getAdd_list());
+			if(t.isIs_extra_table()){
+				System.out.println("此表为多出的表");
+				break;
+			}
+			for(Column c:t.getRm_list()){
+				System.out.println("-缺少列："+c.getColumn_name());
+			}
 			for(Column c:t.getColumnList()){
-				System.out.println("列属性不同的数量："+c.getErr_filed());
+				if(c.isIs_extra_column()){
+					System.out.println("+多出的列"+c.getColumn_name());
+				}
+			}
+			for(Column c:t.getColumnList()){
+				if(c.getErr_filed().size()>0){
+					System.out.println("字段"+c.getColumn_name()+"列属性不同的数量："+c.getErr_filed());
+				}
 			}
 		}
 		return msg;
 	}
-	private static void schemataProComparing(Schemata base,Schemata other){
+	private static void _schemataProComparing(Schemata base,Schemata other){
 		if (base.getDEFAULT_CHARACTER_SET_NAME() == null) {
 			if (other.getDEFAULT_CHARACTER_SET_NAME() != null)
 				other.getErr_filed().add("DEFAULT_CHARACTER_SET_NAME");
@@ -141,13 +156,13 @@ public class Comparation {
 		}
 	}
 	private String _start(DBComponent base,DBComponent other){
-		schemataProComparing(base.getSchemata(),other.getSchemata());
+		_schemataProComparing(base.getSchemata(),other.getSchemata());
 		for(Table table_base:base.getTableList()){
 			Table table_other = other.getTableByTableName(table_base.getTABLE_NAME());
 			if(table_other!=null){
 				//比较表属性
-				tableProComparing(table_base,table_other);
-				ColumnComparing(table_base,table_other);
+				_tableProComparing(table_base,table_other);
+				_columnComparing(table_base,table_other);
 			}else{
 				//从表中被删减的表
 				other.getRm_list().add(table_base);
@@ -160,12 +175,12 @@ public class Comparation {
 				//主表存在
 			}else{
 				//从表中多出的表
-				other.getAdd_list().add(table_other);
+				table_other.setIs_extra_table(true);
 			}
 		}
 		return null;
 	}
-	private void tableProComparing(Table base,Table other){
+	private void _tableProComparing(Table base,Table other){
 		if (base.getENGINE()== null) {
 			if (other.getENGINE() != null){
 				other.getErr_filed().add("ENGINE");
@@ -295,7 +310,7 @@ public class Comparation {
 		
 		Comparation c = new Comparation();
 		c._start(compareTable,compareTable2);
-		c.getMessage(compareTable2);
+		c._getMessage(compareTable2);
 		System.out.println("l");
 	}
 }
