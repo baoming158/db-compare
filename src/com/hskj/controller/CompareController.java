@@ -38,12 +38,13 @@ public class CompareController {
 		comparation._compare(c, compareTables);
 //		if(compareTables!=null && compareTables.size()>0){
 //			for(DBComponent compareTable:compareTables){
-//				DBSumary.setSummary("±È½Ï"+compareTable.getUrl()+"ºÍ"+c.getUrl());
+//				DBSumary.setSummary("ï¿½È½ï¿½"+compareTable.getUrl()+"ï¿½ï¿½"+c.getUrl());
 //				comparation._start(compareTable,c);
 //				comparation._getMessage(c);
 //			}
 //		}
 		modelMap.addAttribute("list",compareTables).addAttribute("db_base",c);;
-		return "diffResult";
+		return "compare";
+//		return "diffResult";
 	}
 }
