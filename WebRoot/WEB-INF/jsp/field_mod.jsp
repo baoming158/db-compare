@@ -39,7 +39,7 @@
 	   	    		<ul class="field-item">
 						<!-- column1  -->
 		   	    		<c:if test="${not empty _t.base_column and _t.column_name!=_t.base_column.column_name}">
-							<li class="col01"><span>${_t.column_name }</span> <span class="txt-main">[${_t.base_column.column_name }</span></li>
+							<li class="col01"><span>${_t.column_name }</span> <span class="txt-main">[${_t.base_column.column_name }]</span></li>
 		   	    		</c:if>
 		   	    		<c:if test="${empty _t.base_column or _t.column_name==_t.base_column.column_name}">
 							<li class="col01"><span>${_t.column_name }</span></li>
@@ -47,7 +47,7 @@
 	   	    		
 						<!-- column2  -->
 		   	    		<c:if test="${not empty _t.base_column and _t.ordinal_position!=_t.base_column.ordinal_position}">
-							<li class="col02"><span>${_t.ordinal_position }</span> <span class="txt-main">[${_t.base_column.ordinal_position }</span></li>
+							<li class="col02"><span>${_t.ordinal_position }</span> <span class="txt-main">[${_t.base_column.ordinal_position }]</span></li>
 		   	    		</c:if>
 		   	    		<c:if test="${empty _t.base_column or _t.ordinal_position==_t.base_column.ordinal_position}">
 							<li class="col02"><span>${_t.ordinal_position }</span></li>
@@ -55,7 +55,7 @@
 	   	    		
 						<!-- column  3-->
 		   	    		<c:if test="${not empty _t.base_column and _t.column_default!=_t.base_column.column_default}">
-							<li class="col03"><span>${_t.column_default }</span> <span class="txt-main">[${_t.base_column.column_default }</span></li>
+							<li class="col03"><span>${_t.column_default }</span> <span class="txt-main">[${_t.base_column.column_default }]</span></li>
 		   	    		</c:if>
 		   	    		<c:if test="${empty _t.base_column or _t.column_default==_t.base_column.column_default}">
 							<li class="col03"><span>${_t.column_default }</span></li>
@@ -63,7 +63,7 @@
 	   	    		
 						<!-- column 4 -->
 		   	    		<c:if test="${not empty _t.base_column and _t.is_nullable!=_t.base_column.is_nullable}">
-							<li class="col04"><span>${_t.is_nullable }</span> <span class="txt-main">[${_t.base_column.is_nullable }</span></li>
+							<li class="col04"><span>${_t.is_nullable }</span> <span class="txt-main">[${_t.base_column.is_nullable }]</span></li>
 		   	    		</c:if>
 		   	    		<c:if test="${empty _t.base_column or _t.is_nullable==_t.base_column.is_nullable}">
 							<li class="col04"><span>${_t.is_nullable }</span></li>
@@ -71,7 +71,7 @@
 	   	    		
 						<!-- column 5 -->
 		   	    		<c:if test="${not empty _t.base_column and _t.data_type!=_t.base_column.data_type}">
-							<li class="col05"><span>${_t.data_type }</span> <span class="txt-main">[${_t.base_column.data_type }</span></li>
+							<li class="col05"><span>${_t.data_type }</span> <span class="txt-main">[${_t.base_column.data_type }]</span></li>
 		   	    		</c:if>
 		   	    		<c:if test="${empty _t.base_column or _t.data_type==_t.base_column.data_type}">
 							<li class="col05"><span>${_t.data_type }</span></li>
@@ -79,7 +79,7 @@
 	   	    		
 						<!-- column 6 -->
 		   	    		<c:if test="${not empty _t.base_column and _t.character_maximum_length!=_t.base_column.character_maximum_length}">
-							<li class="col06"><span>${_t.character_maximum_length }</span> <span class="txt-main">[${_t.base_column.character_maximum_length }</span></li>
+							<li class="col06"><span>${_t.character_maximum_length }</span> <span class="txt-main">[${_t.base_column.character_maximum_length }]</span></li>
 		   	    		</c:if>
 		   	    		<c:if test="${empty _t.base_column or _t.character_maximum_length==_t.base_column.character_maximum_length}">
 							<li class="col06"><span>${_t.character_maximum_length }</span></li>
@@ -87,7 +87,7 @@
 	   	    		
 						<!-- column 7  -->
 		   	    		<c:if test="${not empty _t.base_column and _t.character_set_name!=_t.base_column.character_set_name}">
-							<li class="col07"><span>${_t.character_set_name }</span> <span class="txt-main">[${_t.base_column.character_set_name }</span></li>
+							<li class="col07"><span>${_t.character_set_name }</span> <span class="txt-main">[${_t.base_column.character_set_name }]</span></li>
 		   	    		</c:if>
 		   	    		<c:if test="${empty _t.base_column or _t.character_set_name==_t.base_column.character_set_name}">
 							<li class="col07"><span>${_t.character_set_name }</span></li>
@@ -95,7 +95,7 @@
 	   	    		
 						<!-- column 8  -->
 		   	    		<c:if test="${not empty _t.base_column and _t.collation_name!=_t.base_column.collation_name}">
-							<li class="col08"><span>${_t.collation_name }</span> <span class="txt-main">[${_t.base_column.collation_name }</span></li>
+							<li class="col08"><span>${_t.collation_name }</span> <span class="txt-main">[${_t.base_column.collation_name }]</span></li>
 		   	    		</c:if>
 		   	    		<c:if test="${empty _t.base_column or _t.collation_name==_t.base_column.collation_name}">
 							<li class="col08"><span>${_t.collation_name }</span> </li>

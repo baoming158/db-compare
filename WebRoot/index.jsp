@@ -26,9 +26,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     用户名：<input type="text" name="username" id="username" value="root"/><br/>
     密码：<input type="password" id="password" name="password" value="root"/><br/>
   <hr/>
-    数据库服务器地址:<input type="text" name="url1" id="url1" value="jdbc:mysql://localhost:3306/test1?useUnicode=true&characterEncoding=gbk"><br/>
+    数据库服务器地址:<input type="text" name="url1" id="url1" value="jdbc:mysql://192.168.5.132:3306/sms_client_new?useUnicode=true&characterEncoding=gbk"><br/>
     用户名：<input type="text" name="username1" id="username1" value="root"/><br/>
-    密码：<input type="password" id="password1" name="password1" value="root"/><br/>
+    密码：<input type="password" id="password1" name="password1" value="123456"/><br/>
   <hr/>
     数据库服务器地址:<input type="text" name="url2" id="url2" value="jdbc:mysql://localhost:3306/test2?useUnicode=true&characterEncoding=gbk"> <br/>
     用户名：<input type="text" name="username2" id="username2" value="root"/><br/>
