@@ -1,0 +1,93 @@
+@charset "utf-8";
+/* CSS Document */
+
+html,body,div, h1, h2, h3 ,p ,ul, li{ margin:0; padding:0; border:none;}
+html,body{ 
+	background:#F8F9E5;
+	line-height:1.7;
+	color:#444;
+	font-size:12px; font-family:Arial, Helvetica, "微软雅黑", "Microsoft Yahei", sans-serif;
+}
+.clear{ clear:both;}
+a{ color:#444; text-decoration:none;}
+.container{ margin:10px;}
+h1, h2, h3, h4{ font-weight:normal;}
+h1{ font-size:20px;}
+h2{ font-size:18px;}
+h3{ font-size:14px;}
+h4{ font-size:12px;}
+
+h1 span, h4 span{ padding-right:20px; white-space:nowrap;}
+.txt-main{ color:#F00;}
+
+/* 数据库 */
+.db-main{ margin:10px; padding:10px;
+	background:#FFF;
+	box-shadow:0 0 4px 0 #666;
+}
+.db-main h2{ color:#3A6772;}
+.property{ color:#777;}
+.property span{ padding-right:20px; white-space:normal;}
+.table-item{ float:left; padding: 15px 15px 20px; margin:10px 10px 20px 0;
+	height:auto;
+	position:relative;
+	border:1px solid #C8B897;	
+	-webkit-border-radius:6px;
+	-ms-border-radius:6px;
+	-o-border-radius:6px;
+	border-radius:6px;
+}
+.table-item h3, .table-item h3 a{ color:#333;} /* 表名称 */
+.table-item h3 a:hover{ text-decoration:underline;}
+.tag{ position:absolute; left:0; bottom:0;	
+	background:#666;	
+	-webkit-border-bottom-left-radius:5px;
+	-ms-border-bottom-left-radius:5px;
+	-o-border-bottom-left-radius:5px;
+	border-bottom-left-radius:5px;
+}
+.tag span{ display:block; width:16px; height:17px;
+	text-align:center;
+	font-size:16px; color:#FFF;
+	line-height:17px;
+}
+
+.table-add h3, .table-add h3 a{ color:#096;} /* 新增的表 */
+.table-add .tag{ background:#096;}
+.table-del{ border:1px dashed #C8B897; color:#999;} /* 没有的表 */
+.table-del h3, .table-del h3 a{ color:#999;}
+.table-del .tag{ background:#BBB;}
+.table-diff h3, .table-diff h3 a{ color:#F90} /* 有差别的表 */
+.table-diff .tag{ background:#F90;}
+.pp-diff{ color:#F90;} /* 有差别的属性 */
+
+/* 字段比较 */
+.field-main, .field-title, .field-item{ overflow:hidden;}
+.field-title{ border-bottom:1px solid #DDD; margin-bottom:4px;}
+.field-main li{ list-style:none; float:left; padding:2px 5px; text-align:center; margin-bottom:4px;}
+.field-title li{ white-space:nowrap; font-size:10px; color:#3CF;}
+.field-title li i{ display:block; font-size:12px}
+.col01{ width:80px;}
+.col02{ width:89px;}
+.col03{ width:85px;}
+.col04{ width:61px;}
+.col05{ width:53px;}
+.col06{ width:154px;}
+.col07{ width:114px;}
+.col08{ width:85px;}
+.col09{ width:66px;}
+.col10{ width:48px;}
+.field-add{ border:1px dashed #096; margin-bottom:4px;} /* 新加字段 */
+.field-add .col01{ color:#096;}
+.field-del{ border:1px dashed #ccc; color:#999; margin-bottom:4px;}  /* 从数据库中删除字段 */
+
+/* 图例 */
+.legend{ padding:10px; margin:10px; border:1px solid #C8B897; border-left:none; border-right:none;}
+.legend-item span.l-i-add{background:#096;}
+.legend-item span.l-i-del{background:#BBB;}
+.legend-item span.l-i-diff{background:#F90;}
+.legend-item span{ display:inline-block;width:16px; height:17px;
+	text-align:center;
+	font-size:16px; color:#FFF;
+	line-height:17px;
+}

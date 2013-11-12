@@ -30,6 +30,8 @@ public class Column {
 	private String privileges;//权限（select,insert,update,references）
 	private String column_comment;//注释
 	private boolean is_extra_column;//是否为多出的列
+	private Column base_column;
+	
 	Set<String> err_filed = new HashSet<String>();
 	
 	public boolean isIs_extra_column() {
@@ -277,6 +279,12 @@ public class Column {
 			return false;
 		}
 		return true;
+	}
+	public Column getBase_column() {
+		return base_column;
+	}
+	public void setBase_column(Column base_column) {
+		this.base_column = base_column;
 	}
 	
 	

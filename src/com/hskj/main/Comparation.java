@@ -110,10 +110,16 @@ public class Comparation {
 		} else if (!base.getTable_name().equals(other.getTable_name())){
 			other.getErr_filed().add("table_name");
 		}
+		if(other.getErr_filed()!=null&&other.getErr_filed().size()>0){
+			other.setBase_column(base);
+		}
 	}
-	public String _getMessage(DBComponent component){
+	public void _getMessage(DBComponent component){
+		System.out.println();
 		System.out.println("-------------------------"+component.getDbname()+"----------------------------");
-		String msg = "";
+		for(String e:component.getSchemata().getErr_filed()){
+			System.out.println("*属性差异："+e);
+		}
 		for(Table t:component.getRm_list()){
 			System.out.println("-表："+t.getTABLE_NAME());
 		}
@@ -137,7 +143,6 @@ public class Comparation {
 				}
 			}
 		}
-		return msg;
 	}
 	private static void _schemataProComparing(Schemata base,Schemata other){
 		if (base.getDEFAULT_CHARACTER_SET_NAME() == null) {
@@ -185,6 +190,7 @@ public class Comparation {
 			for(DBComponent c:compareTables){
 				DBSumary.setSummary("比较"+compareTable.getUrl()+"和"+c.getUrl());
 				_start(compareTable,c);
+				_getMessage(c);
 			}
 		}
 	}
@@ -202,6 +208,9 @@ public class Comparation {
 			}
 		} else if (!base.getTABLE_NAME().equals(other.getTABLE_NAME())){
 			other.getErr_filed().add("TABLE_NAME");
+		}
+		if(other.getErr_filed()!=null&&other.getErr_filed().size()>0){
+			other.setBase_table(base);
 		}
 	}
 	
@@ -310,7 +319,7 @@ public class Comparation {
 		
 		DBComponent compareTable = new DBComponent("jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=gbk","root","root");
 		
-//		DBComponent compareTable1 = new DBComponent("jdbc:mysql://localhost:3306/test1?useUnicode=true&characterEncoding=gbk","root","root");
+		DBComponent compareTable1 = new DBComponent("jdbc:mysql://localhost:3306/test1?useUnicode=true&characterEncoding=gbk","root","root");
 		
 		DBComponent compareTable2 = new DBComponent("jdbc:mysql://localhost:3306/test2?useUnicode=true&characterEncoding=gbk","root","root");
 //		Comparation t = new Comparation();

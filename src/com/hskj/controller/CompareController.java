@@ -43,7 +43,7 @@ public class CompareController {
 //				comparation._getMessage(c);
 //			}
 //		}
-		modelMap.addAttribute("list",compareTables);
+		modelMap.addAttribute("list",compareTables).addAttribute("db_base",c);;
 		return "diffResult";
 	}
 }

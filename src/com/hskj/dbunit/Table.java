@@ -14,7 +14,14 @@ public class Table{
 	List<Column> columnList ;
 	List<Column> rm_list = new ArrayList<Column>();//不存在的表
 	List<String> err_filed = new ArrayList<String>();
+	Table base_table ;
 	
+	public Table getBase_table() {
+		return base_table;
+	}
+	public void setBase_table(Table base_table) {
+		this.base_table = base_table;
+	}
 	public boolean isIs_extra_table() {
 		return is_extra_table;
 	}
