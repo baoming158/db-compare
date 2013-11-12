@@ -22,9 +22,16 @@ public class DBComponent{
 	private List<Table> tableList;
 	private List<Table> rm_list = new ArrayList<Table>();
 	private List<Column> columnList;
+	private boolean modified;
 	private Schemata schemata;
 	
 	
+	public boolean isModified() {
+		return modified;
+	}
+	public void setModified(boolean modified) {
+		this.modified = modified;
+	}
 	public List<Table> getRm_list() {
 		return rm_list;
 	}

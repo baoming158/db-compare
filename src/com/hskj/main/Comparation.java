@@ -9,15 +9,18 @@ import com.hskj.util.DBSumary;
 
 
 public class Comparation {
-	private void _columnComparing(Table table_base,Table table_other){
+	private boolean _columnComparing(Table table_base,Table table_other){
 		for(Column column_base:table_base.getColumnList()){
 			Column column_other = table_other.getColumnByName(column_base.getTable_name(),column_base.getColumn_name());
 			if(column_other!=null){
 				//比较属性
-				_columnProComparing(column_base,column_other);
+				if(_columnProComparing(column_base,column_other)){
+					table_other.setModified(true);
+				}
 			}else{
 				//从表中被删减
 				table_other.getRm_list().add(column_base);
+				table_other.setModified(true);
 			}
 		}
 		//反向比较
@@ -27,10 +30,18 @@ public class Comparation {
 			}else{
 				//从表多出属性
 				column_other.setIs_extra_column(true);
+				table_other.setModified(true);
 			}
 		}
+		return table_other.isModified();
 	}
-	private void _columnProComparing(Column base, Column other) {
+	/**
+	 * 
+	 * @param base
+	 * @param other
+	 * @return true:有变化 false无变化
+	 */
+	private boolean _columnProComparing(Column base, Column other) {
 		if (base.getCharacter_maximum_length() == null) {
 			if (other.getCharacter_maximum_length() != null){
 				other.getErr_filed().add("character_maximum_length");
@@ -112,7 +123,9 @@ public class Comparation {
 		}
 		if(other.getErr_filed()!=null&&other.getErr_filed().size()>0){
 			other.setBase_column(base);
+			return true;
 		}
+		return false;
 	}
 	public void _getMessage(DBComponent component){
 		System.out.println();
@@ -166,8 +179,12 @@ public class Comparation {
 			Table table_other = other.getTableByTableName(table_base.getTABLE_NAME());
 			if(table_other!=null){
 				//比较表属性
-				_tableProComparing(table_base,table_other);
-				_columnComparing(table_base,table_other);
+				if(_tableProComparing(table_base,table_other)){
+					other.setModified(true);
+				}
+				if(_columnComparing(table_base,table_other)){
+					other.setModified(true);
+				}
 			}else{
 				//从表中被删减的表
 				other.getRm_list().add(table_base);
@@ -194,7 +211,7 @@ public class Comparation {
 			}
 		}
 	}
-	private void _tableProComparing(Table base,Table other){
+	private boolean _tableProComparing(Table base,Table other){
 		if (base.getENGINE()== null) {
 			if (other.getENGINE() != null){
 				other.getErr_filed().add("ENGINE");
@@ -211,6 +228,12 @@ public class Comparation {
 		}
 		if(other.getErr_filed()!=null&&other.getErr_filed().size()>0){
 			other.setBase_table(base);
+			other.setModified(true);
+		}
+		if(other.isModified()){
+			return true;
+		}else{
+			return false;
 		}
 	}
 	

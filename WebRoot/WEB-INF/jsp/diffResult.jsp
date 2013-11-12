@@ -19,7 +19,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-  <c:forEach items="${list}" var="db">
+  <c:forEach items="${list}" var="db" varStatus="db_order">
   	<div>
   		<div>${db.url}</div>
   		<c:if test="${db.schemata.DEFAULT_CHARACTER_SET_NAME==db_base.schemata.DEFAULT_CHARACTER_SET_NAME}">

@@ -67,6 +67,7 @@ h1 span, h4 span{ padding-right:20px; white-space:nowrap;}
 .field-main li{ list-style:none; float:left; padding:2px 5px; text-align:center; margin-bottom:4px;}
 .field-title li{ white-space:nowrap; font-size:10px; color:#3CF;}
 .field-title li i{ display:block; font-size:12px}
+.field-item li span{ white-space:nowrap;}
 .col01{ width:80px;}
 .col02{ width:89px;}
 .col03{ width:85px;}
@@ -76,7 +77,7 @@ h1 span, h4 span{ padding-right:20px; white-space:nowrap;}
 .col07{ width:114px;}
 .col08{ width:85px;}
 .col09{ width:66px;}
-.col10{ width:48px;}
+.col10{ width:98px;}
 .field-add{ border:1px dashed #096; margin-bottom:4px;} /* 新加字段 */
 .field-add .col01{ color:#096;}
 .field-del{ border:1px dashed #ccc; color:#999; margin-bottom:4px;}  /* 从数据库中删除字段 */

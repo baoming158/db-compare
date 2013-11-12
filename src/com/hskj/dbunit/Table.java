@@ -6,16 +6,23 @@ import java.util.List;
 import com.hskj.util.DBSumary;
 
 public class Table{
-	private String TABLE_SCHEMA;//数据库名称
-	private String TABLE_NAME;//表名称
-	private String ENGINE;//表驱动
-	private boolean is_exit = true;//对方是否存在
-	private boolean is_extra_table;//是否为多出的表
+	private String TABLE_SCHEMA;
+	private String TABLE_NAME;
+	private String ENGINE;
+	private boolean is_exit = true;
+	private boolean is_extra_table;
 	List<Column> columnList ;
-	List<Column> rm_list = new ArrayList<Column>();//不存在的表
+	List<Column> rm_list = new ArrayList<Column>();
 	List<String> err_filed = new ArrayList<String>();
+	private boolean modified;
 	Table base_table ;
 	
+	public boolean isModified() {
+		return modified;
+	}
+	public void setModified(boolean modified) {
+		this.modified = modified;
+	}
 	public Table getBase_table() {
 		return base_table;
 	}
@@ -83,20 +90,20 @@ public class Table{
 		final Table other = (Table) obj;
 		if (ENGINE == null) {
 			if (other.ENGINE != null){
-				DBSumary.addTableMsg("err:表"+this.TABLE_NAME+"驱动（ENGINE）不同");
+				DBSumary.addTableMsg("err:锟斤拷"+this.TABLE_NAME+"锟斤拷ENGINE锟斤拷锟斤拷同");
 				return false;
 			}
 		} else if (!ENGINE.equals(other.ENGINE)){
-			DBSumary.addTableMsg("err:表"+this.TABLE_NAME+"驱动（ENGINE）不同");
+			DBSumary.addTableMsg("err:锟斤拷"+this.TABLE_NAME+"锟斤拷ENGINE锟斤拷锟斤拷同");
 			return false;
 		}
 		if (TABLE_NAME == null) {
 			if (other.TABLE_NAME != null){
-				DBSumary.addTableMsg("err:表"+this.TABLE_NAME+"名称（table_name）不同");
+				DBSumary.addTableMsg("err:锟斤拷"+this.TABLE_NAME+"锟斤拷疲锟絫able_name锟斤拷锟斤拷同");
 				return false;
 			}
 		} else if (!TABLE_NAME.equals(other.TABLE_NAME)){
-			DBSumary.addTableMsg("err:表"+this.TABLE_NAME+"名称（table_name）不同");
+			DBSumary.addTableMsg("err:锟斤拷"+this.TABLE_NAME+"锟斤拷疲锟絫able_name锟斤拷锟斤拷同");
 			return false;
 		}
 		return true;

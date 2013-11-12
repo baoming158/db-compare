@@ -20,13 +20,13 @@ public class CompareController {
 	CompareService compareService; 
 	@RequestMapping("/comparing.do")
 	public String comparing(HttpServletRequest request,ModelMap modelMap){
-		DBComponent c = compareService.getComponentBase(request);
-		List<DBComponent> c1 = compareService.getComponentOthers(request);
-		Comparation comparation = new Comparation();
-		String msg = comparation.compare2(c, c1);
-		modelMap.addAttribute("msg",msg).addAttribute("db_base",c);
+//		DBComponent c = compareService.getComponentBase(request);
+//		List<DBComponent> c1 = compareService.getComponentOthers(request);
+//		Comparation comparation = new Comparation();
+//		String msg = comparation.compare2(c, c1);
+//		modelMap.addAttribute("msg",msg).addAttribute("db_base",c);
 		
-		return "diffResult";
+		return "field";
 	}
 	
 	
