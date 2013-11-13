@@ -127,7 +127,7 @@ public class Comparation {
 		}
 		return false;
 	}
-	public void _getMessage(DBComponent component){
+	public void _getDiffMessage(DBComponent component){
 		System.out.println();
 		System.out.println("-------------------------"+component.getDbname()+"----------------------------");
 		for(String e:component.getSchemata().getErr_filed()){
@@ -209,7 +209,7 @@ public class Comparation {
 			for(DBComponent c:compareTables){
 				DBSumary.setSummary("±È½Ï"+compareTable.getUrl()+"ºÍ"+c.getUrl());
 				_start(compareTable,c);
-				_getMessage(c);
+				_getDiffMessage(c);
 			}
 		}
 	}
@@ -352,6 +352,6 @@ public class Comparation {
 		
 		Comparation c = new Comparation();
 		c._start(compareTable,compareTable2);
-		c._getMessage(compareTable2);
+		c._getDiffMessage(compareTable2);
 	}
 }

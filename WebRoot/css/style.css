@@ -3,6 +3,7 @@
 
 html,body,div, h1, h2, h3 ,p ,ul, li{ margin:0; padding:0; border:none;}
 html,body{ 
+	position:relative;
 	background:#F8F9E5;
 	line-height:1.7;
 	color:#444;
@@ -10,25 +11,57 @@ html,body{
 }
 .clear{ clear:both;}
 a{ color:#444; text-decoration:none;}
-.container{ margin:10px;}
 h1, h2, h3, h4{ font-weight:normal;}
 h1{ font-size:20px;}
 h2{ font-size:18px;}
 h3{ font-size:14px;}
 h4{ font-size:12px;}
-
 h1 span, h4 span{ padding-right:20px; white-space:nowrap;}
+.fl{ float:left;}
+.fr{ float:right;}
+.ipt-check{ height:15px; vertical-align:bottom; margin-bottom:3px; margin-top:-1px;}
+
+.container{ margin:0 10px 10px;}
+.header{ padding:0 20px;
+	background: #F8F9E5;
+	overflow:hidden;
+}
+.head{
+	z-index: 1001;
+	position: fixed;
+	_position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height:44px;
+	padding:0;
+	border-bottom: 1px solid #eee;
+	overflow: visible;
+	-webkit-box-shadow: rgba(0,0,0,.1) 0 1px 5px;
+	-moz-box-shadow: rgba(0,0,0,.1) 0 1px 5px;
+	box-shadow: rgba(0,0,0,.1) 0 1px 5px;
+}
+.head .db-title{ padding-left:30px;}
+.head .head-tips{ padding-right:30px;}
+.db-title a{ color:#F00}
+.db-title a:hover{ text-decoration:underline;}
+.head-tips { width: 200px; margin-top:10px;}
+.head-tips span{ padding:0 10px;}
+
+
+.tip-legend{ cursor:help;}
 .txt-main{ color:#F00;}
 
 /* 数据库 */
-.db-main{ margin:10px; padding:10px;
+.db-main{ margin:10px 20px 30px; padding:10px;
 	background:#FFF;
+	border:1px solid #EEE;
 	box-shadow:0 0 4px 0 #666;
 }
 .db-main h2{ color:#3A6772;}
 .property{ color:#777;}
 .property span{ padding-right:20px; white-space:normal;}
-.table-item{ float:left; padding: 15px 15px 20px; margin:10px 10px 20px 0;
+.table-item{ float:left; padding: 15px 15px 20px; margin:10px 10px 5px 0;
 	height:auto;
 	position:relative;
 	border:1px solid #C8B897;	
@@ -37,6 +70,7 @@ h1 span, h4 span{ padding-right:20px; white-space:nowrap;}
 	-o-border-radius:6px;
 	border-radius:6px;
 }
+.table-item:hover{ background:#fffede;}
 .table-item h3, .table-item h3 a{ color:#333;} /* 表名称 */
 .table-item h3 a:hover{ text-decoration:underline;}
 .tag{ position:absolute; left:0; bottom:0;	
@@ -67,7 +101,6 @@ h1 span, h4 span{ padding-right:20px; white-space:nowrap;}
 .field-main li{ list-style:none; float:left; padding:2px 5px; text-align:center; margin-bottom:4px;}
 .field-title li{ white-space:nowrap; font-size:10px; color:#3CF;}
 .field-title li i{ display:block; font-size:12px}
-.field-item li span{ white-space:nowrap;}
 .col01{ width:80px;}
 .col02{ width:89px;}
 .col03{ width:85px;}
@@ -77,13 +110,13 @@ h1 span, h4 span{ padding-right:20px; white-space:nowrap;}
 .col07{ width:114px;}
 .col08{ width:85px;}
 .col09{ width:66px;}
-.col10{ width:98px;}
+.col10{ width:48px;}
 .field-add{ border:1px dashed #096; margin-bottom:4px;} /* 新加字段 */
 .field-add .col01{ color:#096;}
 .field-del{ border:1px dashed #ccc; color:#999; margin-bottom:4px;}  /* 从数据库中删除字段 */
 
 /* 图例 */
-.legend{ padding:10px; margin:10px; border:1px solid #C8B897; border-left:none; border-right:none;}
+.legend{ padding:10px; margin:10px 20px; border:1px solid #C8B897; border-left:none; border-right:none; display:none;}
 .legend-item span.l-i-add{background:#096;}
 .legend-item span.l-i-del{background:#BBB;}
 .legend-item span.l-i-diff{background:#F90;}

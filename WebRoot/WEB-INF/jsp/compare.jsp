@@ -19,14 +19,57 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    $(".anchor").click(function(){
 	        var href = $(this).attr("href");
 	        var pos = $(href).offset().top;
-	        $("html,body").animate({scrollTop: pos-100}, 1000);
+	        $("html,body").animate({scrollTop: pos-55}, 1000);
 	        return false;
 		});
 		$('.fancybox').fancybox();
 		$("#hideAllNoDiff").click(function(){
 			$(".table-original").toggle("slow");
 		});
+		//scroll
+		function getElementViewTop(element){
+		　　var actualTop = element.offsetTop;
+		　　var current = element.offsetParent;
+		　　while (current !== null){
+		        actualTop += current.offsetTop;
+		        current = current.offsetParent;
+		　　}
+		    var elementScrollTop=0;
+		　　if (document.compatMode == "BackCompat"){
+		        elementScrollTop=document.body.scrollTop;
+		　　} else {
+		        elementScrollTop=document.documentElement.scrollTop; 
+		　　}
+		    return actualTop;
+		　//　return actualTop-elementScrollTop;
+		}
+		function getScroll()
+		{
+		    var top, left, width, height;
+		 
+		    if (document.documentElement && document.documentElement.scrollTop) {
+		        top = document.documentElement.scrollTop;
+		        left = document.documentElement.scrollLeft;
+		        width = document.documentElement.scrollWidth;
+		        height = document.documentElement.scrollHeight;
+		    } else if (document.body) {
+		        top = document.body.scrollTop;
+		        left = document.body.scrollLeft;
+		        width = document.body.scrollWidth;
+		        height = document.body.scrollHeight;
+		    }
+		    return { 'top': top, 'left': left, 'width': width, 'height': height };
+		}
+		var nav = document.getElementById('div_nav');   
+		var posTop = getElementViewTop(nav);
+		window.addEventListener('scroll',function(event){
+		    var scrollTop = getScroll().top;
+		    if(scrollTop>=30) 
+		        nav.className = 'header head';
+		    else nav.className = 'header';
+		},false);
 	});
+	//end of scroll
 	function showFiled(order,table_name,type){
 		$.fancybox.open({
 			href : "getFiledByTable.do?order="+order+"&table_name="+table_name+"&type="+type,
@@ -42,14 +85,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <body>
 <div class="container">
-	<h1><span class="txt-main" id="text11"><a title="${db_base.url }">主数据库：${db_base.dbname} </a> <input type="checkbox" id="hideAllNoDiff" name="hideAllNoDiff"/>隐藏无变化的表</span>
-		从数据库：
-		<c:forEach items="${list}" var="db_title" varStatus="anchor"> 
-	    	<span><a class="anchor" href="#index_${anchor.index}">${db_title.dbname }</span>
-		</c:forEach>
-        对比结果
-    </h1> 
-	   
+	<div class="header" id="div_nav">
+        <h1 class="db-title fl">
+	        <span class="txt-main" id="text11" title="${db_base.url }">主数据库：<a class="anchor" href="#top">${db_base.dbname}</a></span>
+			从数据库：
+			<c:forEach items="${list}" var="db_title" varStatus="anchor"> 
+		    	<span><a class="anchor" href="#index_${anchor.index}">${db_title.dbname }</a></span>
+			</c:forEach>
+	        对比结果
+	    </h1>
+	    <div class="head-tips fr">
+        	<span><input type="checkbox" id="hideAllNoDiff" name="hideAllNoDiff" class="ipt-check" /><label for="hideAllNoDiff">隐藏无变化的表</label></span>
+            <span><a href="javascript:void(0);" class="tip-legend">图例说明</a></span>
+        </div>
+    </div> 
+	  <a name="top" id="top"></a>
     <c:forEach items="${list}" var="db" varStatus="db_order">   
 	    <div class="db-main">
 	    	<a id="index_${db_order.index }" name="index_${db_order.index }"></a>
