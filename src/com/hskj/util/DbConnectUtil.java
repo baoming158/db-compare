@@ -31,8 +31,6 @@ public class DbConnectUtil {
 			}
 		return dataSource.getConnection();
 	}
-	
-	
 	@Override
 	protected void finalize() throws Throwable {
 		try{
@@ -40,8 +38,6 @@ public class DbConnectUtil {
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		
-		
 	}
 	
 }

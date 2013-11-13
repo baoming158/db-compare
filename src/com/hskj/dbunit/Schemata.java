@@ -3,8 +3,6 @@ package com.hskj.dbunit;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.hskj.util.DBSumary;
-
 public class Schemata {
 	private String SCHEMA_NAME;
 	private String DEFAULT_CHARACTER_SET_NAME;
@@ -34,35 +32,6 @@ public class Schemata {
 	}
 	public void setDEFAULT_COLLATION_NAME(String default_collation_name) {
 		DEFAULT_COLLATION_NAME = default_collation_name;
-	}
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		final Schemata other = (Schemata) obj;
-		if (DEFAULT_CHARACTER_SET_NAME == null) {
-			if (other.DEFAULT_CHARACTER_SET_NAME != null)
-				DBSumary.addSchemataMsg("err:数据库"+this.SCHEMA_NAME+"字符编码（DEFAULT_CHARACTER_SET_NAME）不同");
-				return false;
-		} else if (!DEFAULT_CHARACTER_SET_NAME
-				.equals(other.DEFAULT_CHARACTER_SET_NAME)){
-			DBSumary.addSchemataMsg("err:数据库"+this.SCHEMA_NAME+"字符编码（DEFAULT_CHARACTER_SET_NAME）不同");
-			return false;
-		}
-		if (DEFAULT_COLLATION_NAME == null) {
-			if (other.DEFAULT_COLLATION_NAME != null){
-				DBSumary.addSchemataMsg("err:数据库"+this.SCHEMA_NAME+"定序方式（DEFAULT_COLLATION_NAME）不同");
-				return false;
-			}
-		} else if (!DEFAULT_COLLATION_NAME.equals(other.DEFAULT_COLLATION_NAME)){
-			DBSumary.addSchemataMsg("err:数据库"+this.SCHEMA_NAME+"定序方式（DEFAULT_COLLATION_NAME）不同");
-			return false;
-		}
-		return true;
 	}
 	
 	

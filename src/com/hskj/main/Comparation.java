@@ -5,7 +5,6 @@ import com.hskj.dbunit.Column;
 import com.hskj.dbunit.DBComponent;
 import com.hskj.dbunit.Schemata;
 import com.hskj.dbunit.Table;
-import com.hskj.util.DBSumary;
 
 
 public class Comparation {
@@ -207,7 +206,6 @@ public class Comparation {
 	public void _compare(DBComponent compareTable,List<DBComponent> compareTables){
 		if(compareTables!=null && compareTables.size()>0){
 			for(DBComponent c:compareTables){
-				DBSumary.setSummary("比较"+compareTable.getUrl()+"和"+c.getUrl());
 				_start(compareTable,c);
 				_getDiffMessage(c);
 			}
@@ -241,114 +239,14 @@ public class Comparation {
 	
 	
 	
-	/*
-	 * 
-	 * 比较表是否相同
-	 */
-	private String compareTable(DBComponent base,DBComponent other){
-		String msg ="";
-		for(Table table1:base.getTableList()){
-			Table table2 = other.getTableByTableName(table1.getTABLE_NAME());
-			if(table2!=null){
-				if(!table2.equals(table1)){
-//					msg +=  "数据库："+c1.getUrl()+"中: 表："+table1.getTABLE_NAME()+ "结构不相同\r\n";
-				}
-			}else{
-				table1.setIs_exit(false);
-				DBSumary.addTableMsg("数据库："+other.getUrl()+"中: 不存在表："+table1.getTABLE_NAME()+ "\r\n");
-//				msg +=  "数据库："+c1.getUrl()+"中: 表："+table1.getTABLE_NAME()+ "不存在\r\n";
-			}
-		}
-		
-		return msg.equals("")?"tables   ok:表数据表结构属性正常\r\n":msg;
-	}
 	
-	private String compareColumns(DBComponent base,DBComponent other){
-		String msg = "";
-		System.out.println();
-		for(Table table1:base.getTableList()){
-			if(table1.isIs_exit()){
-				List<Column> c1_column_list =  table1.getColumnList();
-				for(Column column_c1:c1_column_list){
-					Column column_c2 = other.getColumnByColumnName(column_c1.getTable_name(),column_c1.getColumn_name()); 
-					if(column_c2!=null){
-						if(!column_c1.equals(column_c2)){
-							msg += "columns err:数据库"+other.getUrl()+"中,表:"+table1.getTABLE_NAME()+":字段"+column_c1.getColumn_name()+"异常\r\n";
-						}
-					}else{
-						DBSumary.addColumnMsg("columns err:数据库"+other.getUrl()+"中,表:"+table1.getTABLE_NAME()+"中不存在"+column_c1.getColumn_name()+"字段");
-						msg +="columns err:数据库"+other.getUrl()+"中,表:"+table1.getTABLE_NAME()+"中不存在"+column_c1.getColumn_name()+"字段\r\n";
-					}
-				}
-			}
-		}
-		return msg =  msg.equals("")?"columns   ok:表数据表字段结构属性属性正常\r\n":msg;
-	}
-	private void compare(DBComponent compareTable,DBComponent compareTable1){
-		
-		Comparation t = new Comparation();
-		/*
-		 * 比较数据库是否相同
-		 */
-		Schemata schemata = compareTable.getSchemata();
-		Schemata schemata1 = compareTable1.getSchemata();
-		schemata1.equals(schemata);
-		/*
-		 * 
-		 * 比较表是否相同
-		 */
-		t.compareTable(compareTable,compareTable1);
-		t.compareTable(compareTable1,compareTable);
-		
-		/*
-		 *比较表字段 
-		 */
-		t.compareColumns(compareTable,compareTable1);
-		t.compareColumns(compareTable1,compareTable);
-		
-		
-	}
 	
-	public String compare2(DBComponent compareTable,DBComponent ...compareTables){
-		String msg = "";
-		if(compareTables!=null && compareTables.length>0){
-			for(int i = 0;i<compareTables.length;i++){
-				DBSumary.setSummary("比较"+compareTable.getUrl()+"和"+compareTables[i].getUrl());
-				compare(compareTable,compareTables[i]);
-				msg += DBSumary.nextMessage()+"\r\n";
-//				System.out.println(DBSumary.nextMessage());
-			}
-		}
-		System.out.println(msg);
-		return msg;
-	}
-	/**
-	 * web 版调用
-	 * @param compareTable
-	 * @param compareTables
-	 * @return
-	 */
-	public String compare2(DBComponent compareTable,List<DBComponent> compareTables){
-		String msg = "";
-		if(compareTables!=null && compareTables.size()>0){
-			for(DBComponent c:compareTables){
-				DBSumary.setSummary("比较"+compareTable.getUrl()+"和"+c.getUrl());
-				compare(compareTable,c);
-				msg += DBSumary.nextMessage()+"\r\n";
-//				System.out.println(DBSumary.nextMessage());
-			}
-		}
-		return msg;
-	}
 	public static void main(String[] args) throws Exception{
 		
 		DBComponent compareTable = new DBComponent("jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=gbk","root","root");
 		
-		DBComponent compareTable1 = new DBComponent("jdbc:mysql://localhost:3306/test1?useUnicode=true&characterEncoding=gbk","root","root");
 		
 		DBComponent compareTable2 = new DBComponent("jdbc:mysql://localhost:3306/test2?useUnicode=true&characterEncoding=gbk","root","root");
-//		Comparation t = new Comparation();
-//		t.compare2(compareTable,compareTable1,compareTable2);
 		
 		Comparation c = new Comparation();
 		c._start(compareTable,compareTable2);

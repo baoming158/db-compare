@@ -3,8 +3,6 @@ package com.hskj.dbunit;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.hskj.util.DBSumary;
-
 
 
 
@@ -167,119 +165,6 @@ public class Column {
 		this.numeric_precision = numeric_precision;
 	}
 	
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		final Column other = (Column) obj;
-		if (character_maximum_length == null) {
-			if (other.character_maximum_length != null){
-				DBSumary.addColumnMsg("err:表 "+this.table_name+" 所在列 "+this.column_name+" 的字符串长度（character_maximum_length）不同");
-				return false;
-			}
-		} else if (!character_maximum_length
-				.equals(other.character_maximum_length)){
-			DBSumary.addColumnMsg("err:表 "+this.table_name+" 所在列 "+this.column_name+" 的字符串长度（character_maximum_length）不同");
-			return false;
-		}
-		if (character_set_name == null) {
-			if (other.character_set_name != null){
-				DBSumary.addColumnMsg("err:表 "+this.table_name+" 所在列 "+this.column_name+" 的字符字符编码（character_set_name）不同");
-				return false;
-			}
-		} else if (!character_set_name.equals(other.character_set_name)){
-			DBSumary.addColumnMsg("err:表 "+this.table_name+" 所在列 "+this.column_name+" 的字符字符编码（character_set_name）不同");
-			return false;
-		}
-		if (collation_name == null) {
-			if (other.collation_name != null){
-				DBSumary.addColumnMsg("err:表 "+this.table_name+" 所在列 "+this.column_name+" 的定序（collation_name）方式不同");
-				return false;
-			}
-		} else if (!collation_name.equals(other.collation_name)){
-			DBSumary.addColumnMsg("err:表 "+this.table_name+" 所在列 "+this.column_name+" 的定序（collation_name）方式不同");
-			return false;
-		}
-		if (column_default == null) {
-			if (other.column_default != null){
-				DBSumary.addColumnMsg("err:表 "+this.table_name+" 所在列 "+this.column_name+" 默认值（column_default）不同");
-				return false;
-			}
-		} else if (!column_default.equals(other.column_default)){
-			DBSumary.addColumnMsg("err:表 "+this.table_name+" 所在列 "+this.column_name+" 默认值（column_default）不同");
-			return false;
-		}
-		if (column_key == null) {
-			if (other.column_key != null){
-				DBSumary.addColumnMsg("err:表 "+this.table_name+" 所在列 "+this.column_name+" 主键（column_key）设置不同");
-				return false;
-			}
-		} else if (!column_key.equals(other.column_key)){
-			DBSumary.addColumnMsg("err:表 "+this.table_name+" 所在列 "+this.column_name+" 主键（column_key）设置不同");
-			return false;
-		}
-		if (column_name == null) {
-			if (other.column_name != null){
-				DBSumary.addColumnMsg("err:表 "+this.table_name+" 所在列 "+this.column_name+" 名称（column_name）不同");
-				return false;
-			}
-		} else if (!column_name.equals(other.column_name)){
-			DBSumary.addColumnMsg("err:表 "+this.table_name+" 所在列 "+this.column_name+" 名称（column_name）不同");
-			return false;
-		}
-		if (column_type == null) {
-			if (other.column_type != null){
-				DBSumary.addColumnMsg("err:表 "+this.table_name+" 所在列 "+this.column_name+" 类型（column_type）不同");
-				return false;
-			}
-		} else if (!column_type.equals(other.column_type)){
-			DBSumary.addColumnMsg("err:表 "+this.table_name+" 所在列 "+this.column_name+" 类型（column_type）不同");
-			return false;
-		}
-		if (data_type == null) {
-			if (other.data_type != null)
-				DBSumary.addColumnMsg("err:表 "+this.table_name+" 所在列 "+this.column_name+" 数据类型（data_type）不同");
-				return false;
-		} else if (!data_type.equals(other.data_type)){
-			DBSumary.addColumnMsg("err:表 "+this.table_name+" 所在列 "+this.column_name+" 数据类型（data_type）不同");
-			return false;
-		}
-		if (extra == null) {
-			if (other.extra != null){
-				DBSumary.addColumnMsg("err:表 "+this.table_name+" 所在列 "+this.column_name+" 附加信息（extra）不同");
-				return false;
-			}
-		} else if (!extra.equals(other.extra)){
-			DBSumary.addColumnMsg("err:表 "+this.table_name+" 所在列 "+this.column_name+" 附加信息（extra）不同");
-			return false;
-		}
-		if (is_nullable == null) {
-			if (other.is_nullable != null){
-				DBSumary.addColumnMsg("err:表 "+this.table_name+" 所在列 "+this.column_name+" 非空定义（is_nullable）不同");
-				return false;
-			}
-		} else if (!is_nullable.equals(other.is_nullable)){
-			DBSumary.addColumnMsg("err:表 "+this.table_name+" 所在列 "+this.column_name+" 非空定义（is_nullable）不同");
-			return false;
-		}
-		if (ordinal_position != other.ordinal_position){
-			DBSumary.addColumnMsg("err:表 "+this.table_name+" 所在列 "+this.column_name+" 顺序（ordinal_position）不同");
-			return false;
-		}
-		if (table_name == null) {
-			if (other.table_name != null)
-				DBSumary.addColumnMsg("err:表 "+this.table_name+" 所在列 "+this.column_name+" 表名（table_name）不同");
-				return false;
-		} else if (!table_name.equals(other.table_name)){
-			DBSumary.addColumnMsg("err:表 "+this.table_name+" 所在列 "+this.column_name+" 表名（table_name）不同");
-			return false;
-		}
-		return true;
-	}
 	public Column getBase_column() {
 		return base_column;
 	}
