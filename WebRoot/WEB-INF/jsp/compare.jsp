@@ -19,7 +19,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    $(".anchor").click(function(){
 	        var href = $(this).attr("href");
 	        var pos = $(href).offset().top;
-	        $("html,body").animate({scrollTop: pos-55}, 1000);
+	        var diff = $("#div_nav").height();
+	        $("html,body").animate({scrollTop: pos-diff}, 1000);
 	        return false;
 		});
 		$('.fancybox').fancybox();
@@ -46,7 +47,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		function getScroll()
 		{
 		    var top, left, width, height;
-		 
 		    if (document.documentElement && document.documentElement.scrollTop) {
 		        top = document.documentElement.scrollTop;
 		        left = document.documentElement.scrollLeft;
@@ -64,9 +64,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		var posTop = getElementViewTop(nav);
 		window.addEventListener('scroll',function(event){
 		    var scrollTop = getScroll().top;
-		    if(scrollTop>=30) 
+		    var diff = $("#div_nav").height();
+		    if(scrollTop>=120+diff){ 
+		    	$("#fake_div").show();
 		        nav.className = 'header head';
-		    else nav.className = 'header';
+	        }else{
+	        	nav.className = 'header';
+	        	$("#fake_div").hide();
+        	}
 		},false);
 	});
 	//end of scroll
@@ -85,6 +90,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <body>
 <div class="container">
+	
+	<div id="fake_div" class="header" style="width:84px;display:none;"></div>
 	<div class="header" id="div_nav">
         <h1 class="db-title fl">
 	        <span class="txt-main" id="text11" title="${db_base.url }">主数据库：<a class="anchor" href="#top">${db_base.dbname}</a></span>
