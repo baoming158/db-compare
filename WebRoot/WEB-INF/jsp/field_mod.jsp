@@ -10,15 +10,10 @@
 </head>
 
 <body>
-<div style="display:none" id="inline_${db_order.index }_${t.TABLE_NAME }">
+<div>
 	<div class="db-main" style="margin:0; padding:5px;">
-    	<h3>表名称：<strong>${t.TABLE_NAME }</strong></h3>
+    	<h3>表名称：<strong>${t.TABLE_NAME }(存在差异)</strong></h3>
         
-    	<h4><span class="txt-main">数据库：${db.dbname }</span>
-            <span>
-            	存在差异
-            </span>
-        </h4>
         <!--field start-->
         <div class="field-main">
         	<ul class="field-title">

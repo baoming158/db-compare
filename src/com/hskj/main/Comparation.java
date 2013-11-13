@@ -188,6 +188,7 @@ public class Comparation {
 			}else{
 				//从表中被删减的表
 				other.getRm_list().add(table_base);
+				other.setModified(true);
 			}
 		}
 		//反向比较
@@ -198,6 +199,7 @@ public class Comparation {
 			}else{
 				//从表中多出的表
 				table_other.setIs_extra_table(true);
+				other.setModified(true);
 			}
 		}
 		return null;

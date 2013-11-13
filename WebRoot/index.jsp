@@ -21,6 +21,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
+  本地+远程
   <form action="showDiff.do" method="post">
     数据库服务器地址:<input type="text" name="url" id="url" value="jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=gbk"><br/>
     用户名：<input type="text" name="username" id="username" value="root"/><br/>
@@ -34,6 +35,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     用户名：<input type="text" name="username2" id="username2" value="root"/><br/>
     密码：<input type="password" id="password2" name="password2" value="root"/><br/>
     <input type="submit" value="提交比较"> 
+  </form>
+  
+  本地
+  <form action="showDiff.do" method="post">
+    数据库服务器地址:<input type="text" name="url" id="url" value="jdbc:mysql://192.168.6.53:3306/test?useUnicode=true&characterEncoding=gbk"><br/>
+    用户名：<input type="text" name="username" id="username" value="root"/><br/>
+    密码：<input type="password" id="password" name="password" value="root"/><br/>
+  <hr/>
+    数据库服务器地址:<input type="text" name="url1" id="url1" value="jdbc:mysql://192.168.6.53:3306/test1?useUnicode=true&characterEncoding=gbk"><br/>
+    用户名：<input type="text" name="username1" id="username1" value="root"/><br/>
+    密码：<input type="password" id="password1" name="password1" value="root"/><br/>
+  <hr/>
+    数据库服务器地址:<input type="text" name="url2" id="url2" value="jdbc:mysql://192.168.6.53:3306/test2?useUnicode=true&characterEncoding=gbk"> <br/>
+    用户名：<input type="text" name="username2" id="username2" value="root"/><br/>
+    密码：<input type="password" id="password2" name="password2" value="root"/><br/>
+    <input type="submit" value="提交比较2"> 
   </form>
   </body>
 </html>

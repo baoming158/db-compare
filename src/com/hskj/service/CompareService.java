@@ -26,7 +26,7 @@ public class CompareService {
 			String url = request.getParameter("url"+i);
 			String username = request.getParameter("username"+i);
 			String password = request.getParameter("password"+i);
-			if(url!=null&&!url.equals("")){//²»´æÔÚ
+			if(url!=null&&!url.equals("")){
 				DBComponent c = new DBComponent(url,username,password);
 				list.add(c);
 			}else{

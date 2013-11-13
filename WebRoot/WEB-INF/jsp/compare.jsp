@@ -13,91 +13,110 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link rel="stylesheet" type="text/css" href="js/fancyBox/source/jquery.fancybox.css?v=2.1.5" media="screen" />
 <script type="text/javascript" src="js/fancyBox/lib/jquery-1.10.1.min.js"></script>
 <script type="text/javascript" src="js/fancyBox/source/jquery.fancybox.js?v=2.1.5"></script>
-<script type="text/javascript" src="js/fancyBox/source/helpers/jquery.fancybox-media.js?v=1.0.6"></script>
 <title>数据库比较</title>
 <script type="text/javascript">
-	$(document).ready(function() {
-		$(".fancybox").fancybox();
+	$(document).ready(function(){
+	    $(".anchor").click(function(){
+	        var href = $(this).attr("href");
+	        var pos = $(href).offset().top;
+	        $("html,body").animate({scrollTop: pos-100}, 1000);
+	        return false;
+		});
+		$('.fancybox').fancybox();
+		$("#hideAllNoDiff").click(function(){
+			$(".table-original").toggle("slow");
+		});
 	});
+	function showFiled(order,table_name,type){
+		$.fancybox.open({
+			href : "getFiledByTable.do?order="+order+"&table_name="+table_name+"&type="+type,
+			type : 'iframe',
+			padding : 5,
+			width:1050,
+			height:780,
+		});
+	}
+	
 </script>
 </head>
 
 <body>
 <div class="container">
-	<h1><span class="txt-main"><a class="fancybox" href="#inline1" >主数据库：DB</a></span>
-    	<span id="23">从数据库：DB1</span>
-        <span>从数据库：DB2</span>
+	<h1><span class="txt-main" id="text11"><a title="${db_base.url }">主数据库：${db_base.dbname} </a> <input type="checkbox" id="hideAllNoDiff" name="hideAllNoDiff"/>隐藏无变化的表</span>
+		从数据库：
+		<c:forEach items="${list}" var="db_title" varStatus="anchor"> 
+	    	<span><a class="anchor" href="#index_${anchor.index}">${db_title.dbname }</span>
+		</c:forEach>
         对比结果
     </h1> 
+	   
     <c:forEach items="${list}" var="db" varStatus="db_order">   
 	    <div class="db-main">
-	    	<h2><strong>${db.dbname}  (${db.url})</strong></h2>
+	    	<a id="index_${db_order.index }" name="index_${db_order.index }"></a>
+	    	<h2><strong>${db.dbname}   <a class="fancybox" href="#text11">查看结果</a></strong></h2>
 	        <p class="property">
+	        	(${db.url}) 
 	        	<c:if test="${db.schemata.DEFAULT_CHARACTER_SET_NAME==db_base.schemata.DEFAULT_CHARACTER_SET_NAME}">
 		  			<span>编码：<i>${db.schemata.DEFAULT_CHARACTER_SET_NAME}</i></span>
 		  		</c:if>
 		  		<c:if test="${db.schemata.DEFAULT_CHARACTER_SET_NAME!=db_base.schemata.DEFAULT_CHARACTER_SET_NAME}">
-		  			<span>*编码：<i>${db.schemata.DEFAULT_CHARACTER_SET_NAME} (原：${db_base.schemata.DEFAULT_CHARACTER_SET_NAME })</i></span>
+		  			<span>*编码：${db.schemata.DEFAULT_CHARACTER_SET_NAME} <i class="pp-diff">(原：${db_base.schemata.DEFAULT_CHARACTER_SET_NAME })</i></span>
 		  		</c:if>
 		  		
 		  		<c:if test="${db.schemata.DEFAULT_COLLATION_NAME==db_base.schemata.DEFAULT_COLLATION_NAME}">
 		  			<span>定序：<i>${db.schemata.DEFAULT_COLLATION_NAME}</i></span>
 		  		</c:if>
 		  		<c:if test="${db.schemata.DEFAULT_COLLATION_NAME!=db_base.schemata.DEFAULT_COLLATION_NAME}">
-		  			<span>*定序：<i>${db.schemata.DEFAULT_COLLATION_NAME} (原：${db_base.schemata.DEFAULT_COLLATION_NAME })</i></span>
+		  			<span>*定序：${db.schemata.DEFAULT_COLLATION_NAME} <i class="pp-diff">(原：${db_base.schemata.DEFAULT_COLLATION_NAME })</i></span>
 		  		</c:if>
 	        </p>
 	        <!-- table-item -->
 	        
 	        
 	        <c:forEach items="${db.rm_list }" var="rm_table">
+	        	<!-- removed Table -->
 	        	<div class="table-item table-del">
-		        	<h3>-表名称：<a class="fancybox" href="#inline_${db_order.index }_${rm_table.TABLE_NAME }"><strong>${rm_table.TABLE_NAME }</strong></a></h3>
+		        	<h3>-表名称：<a href="javascript:showFiled('${db_order.index }','${rm_table.TABLE_NAME }','rm');"><strong>${rm_table.TABLE_NAME }</strong></a></h3>
 		            <p class="property">
 		            	<span>表驱动：<i>${rm_table.ENGINE }</i></span>	
 		            </p>
 		            <div class="tag"><span>&minus;</span></div>            
 		        </div>
-		        <c:set value="${rm_table}" var="t"/>
-	        	<%@include file="field_rm.jsp"%>
 	        </c:forEach>
 	        
 	        <c:forEach items="${db.tableList }" var="each_table">
 	  			<c:if test="${each_table.is_extra_table}">
+	  				<!-- added table -->
 	  				<div class="table-item table-add">
-			        	<h3>+表名称：<a class="fancybox" href="#inline_${db_order.index }_${each_table.TABLE_NAME }"><strong>+${each_table.TABLE_NAME }</strong></a></h3>
+			        	<h3>+表名称：<a href="javascript:showFiled('${db_order.index }','${each_table.TABLE_NAME }','add');"><strong>+${each_table.TABLE_NAME }</strong></a></h3>
 			            <p class="property">
 			            	<span>表驱动：<i>${each_table.ENGINE }</i></span>	
 			            </p>
 			            <div class="tag"><span>+</span></div>            
 			        </div>
-			        <c:set value="${each_table}" var="t"/>
-		        	<%@include file="field_add.jsp"%>
 	  			</c:if>
 	  			<c:if test="${not each_table.is_extra_table}">
 	  				<c:if test="${not each_table.modified}">
-		  				 <div class="table-item">
-				        	<h3>表名称：<a class="fancybox" href="#inline_${db_order.index }_${each_table.TABLE_NAME }"><strong>${each_table.TABLE_NAME }</strong></a></h3>
+	  					<!-- original table / not changed -->
+		  				 <div class="table-item table-original">
+				        	<h3>表名称：<a href="javascript:showFiled('${db_order.index }','${each_table.TABLE_NAME }','original');"><strong>${each_table.TABLE_NAME }</strong></a></h3>
 				            <p class="property">
 				            	<span>表驱动：<i>${each_table.ENGINE }</i></span>	
 				            </p>
 				        </div>
-				        <c:set value="${each_table}" var="t"/>
-			        	<%@include file="field_original.jsp"%>
 	  				</c:if>
 	  				<c:if test="${each_table.modified}">
+	  					<!-- modified table / changed -->
 			         	<div class="table-item table-diff">
-				        	<h3>*表名称：<a class="fancybox" href="#inline_${db_order.index }_${each_table.TABLE_NAME }"><strong>${each_table.TABLE_NAME }</strong></a></h3>
+				        	<h3>*表名称：<a href="javascript:showFiled('${db_order.index }','${each_table.TABLE_NAME }','mod');"><strong>${each_table.TABLE_NAME }</strong></a></h3>
 				            <p class="property">
 				            	<c:if test="${empty each_table.base_table or each_table.ENGINE==each_table.base_table.ENGINE}">
 				            		<span>表驱动：<i>${each_table.ENGINE }</i>&nbsp;</span>	
 				            	</c:if>
 				            	<c:if test="${not empty each_table.base_table and each_table.ENGINE!=each_table.base_table.ENGINE}">
-				            		<span>表驱动：<i class="pp-diff">${each_table.ENGINE }</i>&nbsp;(原:${each_table.base_table.ENGINE })</span>	
+				            		<span>表驱动：${each_table.ENGINE }&nbsp;<i class="pp-diff">(原:${each_table.base_table.ENGINE })</i></span>	
 				            	</c:if>
 				            </p>
-				            <c:set value="${each_table}" var="t"/>
-				        	<%@include file="field_mod.jsp"%>
 				            <div class="tag"><span>&lowast;</span></div>
 				        </div>
 				    </c:if>
