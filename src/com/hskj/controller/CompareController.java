@@ -29,6 +29,7 @@ public class CompareController {
 	public String showDiff(HttpServletRequest request,HttpServletResponse response,HttpSession session,ModelMap modelMap) throws Exception{
 		
 		DBComponent c = null;
+		
 		List<DBComponent> compareTables = null;
 		c = compareService.getComponentBase(request);
 		compareTables = compareService.getComponentOthers(request);
