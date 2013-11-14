@@ -1,5 +1,6 @@
 package com.hskj.service;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,25 +13,23 @@ import com.hskj.dbunit.DBComponent;
 @Service
 public class CompareService {
 
-	public DBComponent getComponentBase(HttpServletRequest request) {
-		String url = request.getParameter("url");
-		String username = request.getParameter("username");
-		String password = request.getParameter("password");
-		DBComponent c = new DBComponent(url,username,password);
+	public DBComponent getComponentBase(HttpServletRequest request) throws SQLException{
+		String[] url = request.getParameterValues("url");
+		String[] username = request.getParameterValues("username");
+		String[] password = request.getParameterValues("password");
+		DBComponent c = new DBComponent(url[0],username[0],password[0]);
 		return c;
 	}
 
-	public List<DBComponent> getComponentOthers(HttpServletRequest request) {
+	public List<DBComponent> getComponentOthers(HttpServletRequest request) throws SQLException{
 		List<DBComponent> list = new ArrayList<DBComponent>();
-		for(int i = 1;i<100;i++){
-			String url = request.getParameter("url"+i);
-			String username = request.getParameter("username"+i);
-			String password = request.getParameter("password"+i);
-			if(url!=null&&!url.equals("")){
-				DBComponent c = new DBComponent(url,username,password);
+		String[] url = request.getParameterValues("url");
+		String[] username = request.getParameterValues("username");
+		String[] password = request.getParameterValues("password");
+		for(int i = 1;i<url.length;i++){
+			if(url!=null&&!"".equals(url)){
+				DBComponent c = new DBComponent(url[i],username[i],password[i]);
 				list.add(c);
-			}else{
-				break;
 			}
 		}
 		return list;

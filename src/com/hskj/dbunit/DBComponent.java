@@ -85,7 +85,7 @@ public class DBComponent{
 		}
 		return null;
 	}
-	public DBComponent(String url,String username,String password){
+	public DBComponent(String url,String username,String password) throws SQLException{
 		this.url = url;
 		dbname = getDBName(url);
 		try {
@@ -93,8 +93,6 @@ public class DBComponent{
 			this.columnList = getColumnsByTableName(null);
 			this.tableList = getTableList(null);
 			this.schemata = getDBSchemata();
-		} catch (SQLException e) {
-			e.printStackTrace();
 		}finally{
 			if(conn!=null){
 				try {
@@ -186,8 +184,5 @@ public class DBComponent{
 		}
 		return null;
 	}
-
-	
-	
 }
 	

@@ -1,7 +1,8 @@
 @charset "utf-8";
 /* CSS Document */
 
-html,body,div, h1, h2, h3 ,p ,ul, li{ margin:0; padding:0; border:none;}
+html,body,div, h1, h2, h3 ,p ,ul, li, form{ margin:0; padding:0; border:none;}
+input{ margin:0;}
 html,body{ 
 	position:relative;
 	background:#F8F9E5;
@@ -35,7 +36,7 @@ h1 span, h4 span{ padding-right:20px; white-space:nowrap;}
 	width: 100%;
 	height:44px;
 	padding:0;
-	border-bottom: 1px solid #eee;
+	border-bottom: 1px solid #eee;	
 	overflow: visible;
 	-webkit-box-shadow: rgba(0,0,0,.1) 0 1px 5px;
 	-moz-box-shadow: rgba(0,0,0,.1) 0 1px 5px;
@@ -43,13 +44,14 @@ h1 span, h4 span{ padding-right:20px; white-space:nowrap;}
 }
 .head .db-title{ padding-left:30px;}
 .head .head-tips{ padding-right:30px;}
+
 .db-title a{ color:#F00}
 .db-title a:hover{ text-decoration:underline;}
 .head-tips { width: 200px; margin-top:10px;}
 .head-tips span{ padding:0 10px;}
 
-
 .tip-legend{ cursor:help;}
+.tip-legend:hover{ color:#F30;}
 .txt-main{ color:#F00;}
 
 /* 数据库 */
@@ -59,7 +61,10 @@ h1 span, h4 span{ padding-right:20px; white-space:nowrap;}
 	box-shadow:0 0 4px 0 #666;
 }
 .db-main h2{ color:#3A6772;}
-.property{ color:#777;}
+.tips-info{ margin-left:10px;}
+.tips-info a{ font-size:12px; color:#666;}
+.tips-info a:hover{ color:#FF9900;}
+.property{ color:#777;}  /*属性*/
 .property span{ padding-right:20px; white-space:normal;}
 .table-item{ float:left; padding: 15px 15px 20px; margin:10px 10px 5px 0;
 	height:auto;
@@ -115,8 +120,25 @@ h1 span, h4 span{ padding-right:20px; white-space:nowrap;}
 .field-add .col01{ color:#096;}
 .field-del{ border:1px dashed #ccc; color:#999; margin-bottom:4px;}  /* 从数据库中删除字段 */
 
+/* 结果说明 */
+.table-info{ overflow:hidden;}
+.t-i-left{ float:left; width:120px; padding-left:10px; color: #F90;}
+.t-i-cont{ margin-left:130px; width:auto; height:auto;}
+.t-i-cont span{ white-space:nowrap; padding:2px 4px; }
+.field-add .t-i-left{color: #096;}
+.field-del .t-i-left{color: #999;}
 /* 图例 */
-.legend{ padding:10px; margin:10px 20px; border:1px solid #C8B897; border-left:none; border-right:none; display:none;}
+/*.legend{ padding:10px; margin:10px 20px; border:1px solid #C8B897; border-left:none; border-right:none; display:none;}*/
+.legend{ position:absolute;
+	top:34px;
+	right:60px;
+	width:235px; height:64px;
+	padding:10px; border:1px solid #CCC; background:#FFF;
+	display:none;
+	-webkit-box-shadow: rgba(0,0,0,.4) 0 1px 5px;
+	-moz-box-shadow: rgba(0,0,0,.4) 0 1px 5px;
+	box-shadow: rgba(0,0,0,.4) 0 1px 5px;
+}
 .legend-item span.l-i-add{background:#096;}
 .legend-item span.l-i-del{background:#BBB;}
 .legend-item span.l-i-diff{background:#F90;}
@@ -125,3 +147,27 @@ h1 span, h4 span{ padding-right:20px; white-space:nowrap;}
 	font-size:16px; color:#FFF;
 	line-height:17px;
 }
+
+/* form */
+.form-main{ margin-top:20px; font-size:14px;}
+.form-item { height:auto; margin-bottom:6px; padding-bottom:6px; border-bottom:1px dashed #C8B897; position:relative;}
+.form-item li{ padding:6px 0; overflow:hidden; list-style:none;}
+.form-item li label{ float:left; width:110px; text-align:right;}
+.f-i-cont{ margin-left:110px; width:auto; height:auto;}
+.ipt-addr{ width:400px;}
+.ipt-txt{ width:140px;}
+.ipt-btn{ padding:4px 10px; cursor:pointer;}
+.form-footer{ margin-left:110px;}
+.form-item .info{ margin-left:45px;} /* 提示信息 */
+.form-item .info i{ font-size:18px; line-height:14px; font-weight:600;}
+.form-item .info-error{ color:#F00;} /* 提示错误 */
+.form-item .info-right{ color:#090;}
+.test-connection{ position:absolute; top:30px; left:320px; } /* 测试数据库连接 */
+.test-connection .ipt-test{ padding:0 20px; height:40px; cursor:pointer;}
+.form-item .operate{ position:absolute; top:2px; left:10px;}/*删除从数据库操作*/
+.form-item .operate .ico-del{ display:block; width:16px; height:16px;
+	font-size:22px;
+	text-align:center; line-height:16px;
+	color:#F90;
+	}
+.form-item .operate .ico-del:hover{ background:#FF9900; color:#FFF;}
