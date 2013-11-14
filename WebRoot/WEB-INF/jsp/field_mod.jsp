@@ -12,7 +12,7 @@
 <body>
 <div>
 	<div class="db-main" style="margin:0; padding:5px;">
-    	<h3>表名称：<strong>${t.TABLE_NAME }(存在差异)</strong></h3>
+    	<h3>表名称：<strong>${t.TABLE_NAME }(存在差异)<span style="color:blue">[红色文字：原表中的字段属性、绿色虚边框中的表示该表中多出的字段、灰色虚边框表示该表中不存在的字段]<span></strong></h3>
         
         <!--field start-->
         <div class="field-main">
@@ -126,7 +126,7 @@
 			                <li class="col06">${_t.character_maximum_length }</li>
 			                <li class="col07">${_t.character_set_name }</li>
 			                <li class="col08">${_t.collation_name }</li>
-			                <li class="col09">${_t.column_name }</li>
+			                <li class="col09">${_t.column_key }</li>
 			                <li class="col10"><span>${_t.extra }</span></li>
 		        		</ul>
 	        		</div>
@@ -146,7 +146,7 @@
 		                <li class="col06">${_t.character_maximum_length }</li>
 		                <li class="col07">${_t.character_set_name }</li>
 		                <li class="col08">${_t.collation_name }</li>
-		                <li class="col09">${_t.column_name }</li>
+		                <li class="col09">${_t.column_key }</li>
 		                <li class="col10"><span>${_t.extra }</span></li>
 	        		</ul>
         		</div>
