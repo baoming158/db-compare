@@ -128,8 +128,8 @@ h1 span, h4 span{ padding-right:20px; white-space:nowrap;}
 .field-add .t-i-left{color: #096;}
 .field-del .t-i-left{color: #999;}
 /* 图例 */
-/*.legend{ padding:10px; margin:10px 20px; border:1px solid #C8B897; border-left:none; border-right:none; display:none;}*/
-.legend{ position:absolute;
+.legend{ padding:10px; margin:10px 20px; border:1px solid #C8B897; border-left:none; border-right:none; display:none;}
+/*.legend{ position:absolute;
 	top:34px;
 	right:60px;
 	width:235px; height:64px;
@@ -138,7 +138,7 @@ h1 span, h4 span{ padding-right:20px; white-space:nowrap;}
 	-webkit-box-shadow: rgba(0,0,0,.4) 0 1px 5px;
 	-moz-box-shadow: rgba(0,0,0,.4) 0 1px 5px;
 	box-shadow: rgba(0,0,0,.4) 0 1px 5px;
-}
+}*/
 .legend-item span.l-i-add{background:#096;}
 .legend-item span.l-i-del{background:#BBB;}
 .legend-item span.l-i-diff{background:#F90;}

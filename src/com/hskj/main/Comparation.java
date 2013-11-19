@@ -1,4 +1,8 @@
 package com.hskj.main;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.io.Writer;
 import java.util.List;
 
 import com.hskj.dbunit.Column;
@@ -126,54 +130,145 @@ public class Comparation {
 		}
 		return false;
 	}
-	public void _getDiffMessage(DBComponent component){
+	public void _consolePrint(DBComponent component){
 		System.out.println();
-		System.out.println("-------------------------"+component.getDbname()+"----------------------------");
-		for(String e:component.getSchemata().getErr_filed()){
-			System.out.println("*属性差异："+e);
+		System.out.println("*************************数据库：【"+component.getDbname()+"("+component.getUrl()+")】*************************");
+		if(component.getSchemata().getErr_filed()!=null&& component.getSchemata().getErr_filed().size()>0){
+			System.out.print("\t(*)数据库属性差异：");
+			for(String e:component.getSchemata().getErr_filed()){
+				System.out.print(e);
+			}
+			System.out.println();
 		}
-		for(Table t:component.getRm_list()){
-			System.out.println("-表："+t.getTABLE_NAME());
+		if(component.getRm_list()!=null && component.getRm_list().size()>0){
+			System.out.print("\t(-)不存在的表：");
+			for(Table t:component.getRm_list()){
+				System.out.print(t.getTABLE_NAME()+"\t");
+			}
+			System.out.println();
 		}
 		for(Table t :component.getTableList()){
-			System.out.println("-------------------------"+t.getTABLE_NAME()+"----------------------------");
-			if(t.isIs_extra_table()){
-				System.out.println("此表为多出的表");
-				break;
-			}
-			for(Column c:t.getRm_list()){
-				System.out.println("-缺少列："+c.getColumn_name());
-			}
-			for(Column c:t.getColumnList()){
-				if(c.isIs_extra_column()){
-					System.out.println("+多出的列"+c.getColumn_name());
-				}
-			}
-			for(Column c:t.getColumnList()){
-				if(c.getErr_filed().size()>0){
-					System.out.println("字段"+c.getColumn_name()+"列属性不同的数量："+c.getErr_filed());
+			if(t.isModified()){
+				System.out.print("\t(*)存在差异的表:");
+				System.out.println("【"+t.getTABLE_NAME()+"】");
+				if(t.isIs_extra_table()){
+					System.out.println("\t\t\t(+)此表为多出的表");
+				}else{
+					if(t.getErr_filed()!=null&&t.getErr_filed().size()>0){
+						System.out.println("\t\t\t差异："+t.getErr_filed());
+					}
+					for(Column c:t.getRm_list()){
+						System.out.println("\t\t\t-缺少列："+c.getColumn_name());
+					}
+					for(Column c:t.getColumnList()){
+						if(c.isIs_extra_column()){
+							System.out.println("\t\t\t+多出的列"+c.getColumn_name());
+						}
+					}
+					for(Column c:t.getColumnList()){
+						if(c.getErr_filed().size()>0){
+							System.out.println("\t\t\t字段"+c.getColumn_name()+"列属性不同："+c.getErr_filed());
+						}
+					}
 				}
 			}
 		}
 	}
-	private static void _schemataProComparing(Schemata base,Schemata other){
+	public void _fileWrite(DBComponent component,String path) throws Exception{
+		if(path==null){
+			path="d:/diff_result.txt";
+		}
+		Writer out = null;
+		try {
+			File file = new File(path);
+			out = new PrintWriter(new FileWriter(file,true));
+			out.write("*************************数据库：【"+component.getDbname()+"("+component.getUrl()+")】*************************\r\n");
+			if(component.getSchemata().getErr_filed()!=null&& component.getSchemata().getErr_filed().size()>0){
+				out.write("\t(*)数据库属性差异：");
+				for(String e:component.getSchemata().getErr_filed()){
+					out.write(e);
+				}
+				out.write("\r\n");
+			}
+			if(component.getRm_list()!=null && component.getRm_list().size()>0){
+				out.write("\t(-)不存在的表：");
+				for(Table t:component.getRm_list()){
+					out.write(t.getTABLE_NAME()+"\t");
+				}
+				out.write("\r\n");
+			}
+			for(Table t :component.getTableList()){
+				if(t.isModified()){
+					out.write("\t(*)存在差异的表:");
+					out.write("【"+t.getTABLE_NAME()+"】\r\n");
+					if(t.isIs_extra_table()){
+						out.write("\t\t\t(+)此表为多出的表\r\n");
+					}else{
+						if(t.getErr_filed()!=null&&t.getErr_filed().size()>0){
+							out.write("\t\t\t差异："+t.getErr_filed()+"\r\n");
+						}
+						for(Column c:t.getRm_list()){
+							out.write("\t\t\t-缺少列："+c.getColumn_name()+"\r\n");
+						}
+						for(Column c:t.getColumnList()){
+							if(c.isIs_extra_column()){
+								out.write("\t\t\t+多出的列"+c.getColumn_name()+"\r\n");
+							}
+						}
+						for(Column c:t.getColumnList()){
+							if(c.getErr_filed().size()>0){
+								out.write("\t\t\t字段"+c.getColumn_name()+"列属性不同："+c.getErr_filed()+"\r\n");
+							}
+						}
+					}
+				}
+			}
+			out.write("\r\n");
+			out.flush();
+		} finally{
+			out.close();
+		}
+	}
+	/**
+	 * 比较库属性 相同则返回true 不相同返回false
+	 * @param base
+	 * @param other
+	 * @return
+	 */
+	private static boolean _schemataProComparing(Schemata base,Schemata other){
+		boolean bool = true;
 		if (base.getDEFAULT_CHARACTER_SET_NAME() == null) {
-			if (other.getDEFAULT_CHARACTER_SET_NAME() != null)
+			if (other.getDEFAULT_CHARACTER_SET_NAME() != null){
 				other.getErr_filed().add("DEFAULT_CHARACTER_SET_NAME");
+				bool = false;
+			}
 		} else if (!base.getDEFAULT_CHARACTER_SET_NAME()
 				.equals(other.getDEFAULT_CHARACTER_SET_NAME())){
 			other.getErr_filed().add("DEFAULT_CHARACTER_SET_NAME");
+			bool = false;
 		}
 		if (base.getDEFAULT_COLLATION_NAME() == null) {
 			if (other.getDEFAULT_COLLATION_NAME() != null){
 				other.getErr_filed().add("DEFAULT_COLLATION_NAME");
+				bool = false;
 			}
 		} else if (!base.getDEFAULT_COLLATION_NAME().equals(other.getDEFAULT_COLLATION_NAME())){
 			other.getErr_filed().add("DEFAULT_COLLATION_NAME");
+			bool = false;
 		}
+		return bool;
 	}
-	public String _start(DBComponent base,DBComponent other){
-		_schemataProComparing(base.getSchemata(),other.getSchemata());
+	
+	/**
+	 * 比较连个库的所有属性是否相同 true 为相同 false为不相同
+	 * @param base
+	 * @param other
+	 * @return
+	 */
+	public boolean _start(DBComponent base,DBComponent other){
+		if(!_schemataProComparing(base.getSchemata(),other.getSchemata())){
+			other.setModified(true);
+		}
 		for(Table table_base:base.getTableList()){
 			Table table_other = other.getTableByTableName(table_base.getTABLE_NAME());
 			if(table_other!=null){
@@ -198,16 +293,17 @@ public class Comparation {
 			}else{
 				//从表中多出的表
 				table_other.setIs_extra_table(true);
+				table_other.setModified(true);
 				other.setModified(true);
 			}
 		}
-		return null;
+		return other.isModified();
 	}
 	public void _compare(DBComponent compareTable,List<DBComponent> compareTables){
 		if(compareTables!=null && compareTables.size()>0){
 			for(DBComponent c:compareTables){
 				_start(compareTable,c);
-				_getDiffMessage(c);
+//				_getDiffMessage(c);
 			}
 		}
 	}
@@ -241,15 +337,4 @@ public class Comparation {
 	
 	
 	
-	public static void main(String[] args) throws Exception{
-		
-		DBComponent compareTable = new DBComponent("jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=gbk","root","root");
-		
-		
-		DBComponent compareTable2 = new DBComponent("jdbc:mysql://localhost:3306/test2?useUnicode=true&characterEncoding=gbk","root","root");
-		
-		Comparation c = new Comparation();
-		c._start(compareTable,compareTable2);
-		c._getDiffMessage(compareTable2);
-	}
 }

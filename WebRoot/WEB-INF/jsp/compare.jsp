@@ -23,6 +23,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        $("html,body").animate({scrollTop: pos-diff}, 1000);
 	        return false;
 		});
+		$(".tip-legend").fancybox();
 		$('.fancybox').fancybox();
 		$("#hideAllNoDiff").click(function(){
 			$(".table-original").toggle("slow");
@@ -103,14 +104,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    </h1>
 	    <div class="head-tips fr">
         	<span><input type="checkbox" id="hideAllNoDiff" name="hideAllNoDiff" class="ipt-check" /><label for="hideAllNoDiff">隐藏无变化的表</label></span>
-            <span><a href="javascript:void(0);" class="tip-legend">图例说明</a></span>
+            <span><a href="#legend" class="tip-legend" href="#legend">图例说明</a></span>
         </div>
     </div> 
 	  <a name="top" id="top"></a>
     <c:forEach items="${list}" var="db" varStatus="db_order">   
 	    <div class="db-main">
 	    	<a id="index_${db_order.index }" name="index_${db_order.index }"></a>
-	    	<h2><strong>${db.dbname}   <a class="fancybox" href="#text11">查看结果</a></strong></h2>
+	    	<h2><strong>${db.dbname}   <a>查看结果</a></strong></h2>
 	        <p class="property">
 	        	(${db.url}) 
 	        	<c:if test="${db.schemata.DEFAULT_CHARACTER_SET_NAME==db_base.schemata.DEFAULT_CHARACTER_SET_NAME}">
@@ -186,7 +187,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    </div>
     </c:forEach>
     <!-- 图例 -->
-    <div class="legend">
+    <div class="legend" id="legend">
     	<div class="legend-item"><span class="l-i-add">+</span> 从数据库新加的表</div>
         <div class="legend-item"><span class="l-i-del">&minus;</span> 从数据库没有的表</div>
         <div class="legend-item"><span class="l-i-diff">&lowast;</span> 与主数据库有差异（属性\字段）的表</div>

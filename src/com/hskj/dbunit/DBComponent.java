@@ -94,7 +94,7 @@ public class DBComponent{
 			this.tableList = getTableList(null);
 			this.schemata = getDBSchemata();
 		}finally{
-			if(conn!=null){
+			if(conn!=null&&!conn.isClosed()){
 				try {
 					conn.close();
 				} catch (SQLException e) {
@@ -102,9 +102,6 @@ public class DBComponent{
 				}
 			}
 		}
-	}
-	public DBComponent(){
-		
 	}
 	private List<Table> getTableList(String table_name) throws SQLException {
 		String sql = " select * from information_schema.TABLES where TABLE_SCHEMA='"+dbname+"'";
