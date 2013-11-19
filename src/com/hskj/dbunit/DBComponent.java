@@ -21,7 +21,7 @@ public class DBComponent{
 	
 	private List<Table> tableList;
 	private List<Table> rm_list = new ArrayList<Table>();
-	private List<Column> columnList;
+	private List<Column> columnList;//一次性查询出来 避免对业务服务器过多的查询
 	private boolean modified;
 	private Schemata schemata;
 	
@@ -117,9 +117,22 @@ public class DBComponent{
 			table.setTABLE_NAME(rs.getString("TABLE_NAME"));
 			table.setTABLE_SCHEMA(rs.getString("TABLE_SCHEMA"));
 			tablelist.add(table);
-			table.setColumnList(getColumnsByTableName(table.getTABLE_NAME()));
+			table.setColumnList(getTableColumns(table.getTABLE_NAME()));
 		}
 		return tablelist;
+	}
+	private List<Column> getTableColumns(String table_name){
+		if(columnList!=null&&columnList.size()>0){
+			List<Column> list = new ArrayList<Column>();
+			for(Column c:columnList){
+				if(c.getTable_name().equals(table_name)){
+					list.add(c);
+				}
+			}
+			return list;
+		}
+		return null;
+	
 	}
 	private List<Column> getColumnsByTableName(String table_name) throws SQLException{
 		String sql = "select * from information_schema.COLUMNS where TABLE_SCHEMA='"+dbname+"'";

@@ -1,5 +1,4 @@
 package com.hskj.controller;
-import java.beans.PropertyChangeListener;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
@@ -27,7 +26,8 @@ public class CompareController {
 	
 	@RequestMapping("/showDiff.do")
 	public String showDiff(HttpServletRequest request,HttpServletResponse response,HttpSession session,ModelMap modelMap) throws Exception{
-		
+		session.removeAttribute("list");
+		session.removeAttribute("db_base");
 		DBComponent c = null;
 		
 		List<DBComponent> compareTables = null;
@@ -38,13 +38,6 @@ public class CompareController {
 		session.setAttribute("list", compareTables);
 		session.setAttribute("db_base", c);
 		return "compare";
-	}
-	@RequestMapping("/showDiff1.do")
-	public String showDiff1(HttpServletRequest request,HttpServletResponse response,HttpSession session,ModelMap modelMap) throws Exception{
-		String[] url = request.getParameterValues("url");
-		String[] username = request.getParameterValues("username");
-		String[] password = request.getParameterValues("password");
-		return null;
 	}
 	
 	@SuppressWarnings("unchecked")
