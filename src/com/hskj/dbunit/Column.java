@@ -4,8 +4,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 
-
-
 public class Column {
 	private String table_catalog;
 	private String table_schema;//¿âÃû³Æ
