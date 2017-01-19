@@ -120,7 +120,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         	<input type="submit" value="提交对比" class="ipt-btn" />
             <input type="button" value="添加从数据库" onclick="javascript:addConnection();" class="ipt-btn" />
         </div>
-                
+        <div class="txt-main">使用注意：数据库连接地址必须是外网可以连接的地址</div>       
     </form>
 </div>
 </body>
